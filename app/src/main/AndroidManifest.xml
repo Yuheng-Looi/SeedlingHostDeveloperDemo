@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.SeedlingHostDeveloperDemo"
+        tools:targetApi="31">
+        <activity
+            android:name=".TestCardClickActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.seedling.demo.hostdeveloperdemo.ACTION_CLICK" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <provider
+            android:name=".TestCardClickProvider"
+            android:authorities="com.seedling.demo.hostdeveloperdemo.TestCardClickProvider"
+            android:enabled="true"
+            android:exported="true"/>
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!--
+ permission：OPPO内部应用必须配置，外部三方不做要求，必选项->
+<!-        authorities：业务方自己定义
+        -->
+        <!-- 卡片生命周期回调 -->
+        <provider
+            android:name=".CardLifeCycleProvider"
+            android:authorities="com.seedling.demo.hostdeveloperdemo.CardLifeCycleProvider"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.oplus.seedling.action.SEEDLING_CARD" />
+            </intent-filter>
+            <!-- 多个upk用;隔开 -->
+            <meta-data
+                android:name="oplus.seedling.provider"
+                android:value="SeedlingDemo.upk" />
+        </provider> <!-- 接入泛在服务，首先需要去OPPO开放平台申请授权码。 咨询产品或者商务，必须 -->
+        <meta-data
+            android:name="com.oplus.ocs.card.AUTH_CODE"
+            android:value="@string/card_auth_code" />
+    </application>
+
+</manifest>

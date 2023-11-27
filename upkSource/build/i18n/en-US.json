@@ -1,0 +1,17 @@
+{
+	"strings": {
+		"openApp": "open app",
+		"name": "Baidu Map",
+		"description": "reminder",
+		"groupTitle": "travel reminder",
+		"title": "new title",
+		"describe": "Description",
+		"status": "Riders are delivering",
+		"info": "Delivery in 12 minutes.",
+		"c2info": "A819H7",
+		"c3info": "Tesla",
+		"weather": "heat",
+		"voiceLabel": "",
+		"button3": "contact rider"
+	}
+}

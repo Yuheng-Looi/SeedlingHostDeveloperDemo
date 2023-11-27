@@ -1,0 +1,17 @@
+{
+	"strings": {
+		"openApp": "打开应用",
+		"name": "百度地图",
+		"description": "提醒",
+		"groupTitle": "旅客 提醒",
+		"title": "新标题",
+		"describe": "描述文本",
+		"status": "骑手正在送货",
+		"info": "预计12分钟后送达",
+		"c2info": "京A819H7",
+		"c3info": "白·特斯拉",
+		"weather": "高温",
+		"voiceLabel": "",
+		"button3": "联系骑手"
+	}
+}

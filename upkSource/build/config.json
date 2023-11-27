@@ -1,0 +1,38 @@
+{ 
+    "identifier": {
+        "url": "test_host_demo_1",
+        "id": "268452000",
+        "type": "seedling",
+        "name": "upkSource",
+        "version": "1.0.2",
+        "versionCode": 1000002
+    },
+    "intent": {
+        "action": ["pantanal.intent.business.app.system.HOST_CARD_DEMO"],
+        "domain": "business_app_system"
+    },
+    "runtime": {
+        "type": "interactive",
+        "permission": [],
+        "use-software": {
+            "platform-version": 2000000
+        },
+        "support-hardware": {
+            "device": [{
+                "type": "PHONE",
+                "entry": ["desktop","assistantscreen", "aod", "lockscreen","notification", "statusbar"]
+            }]
+        },
+        "interactive": {
+            "pages": ["pages/index"],
+            "seedling-type": "live",
+            "window": {
+                "design-width": 360,
+                "auto-design-width": false
+            }
+        }
+    },
+    "meta-data": {
+        "card-config": "assets/card-config.json"
+    }
+}
