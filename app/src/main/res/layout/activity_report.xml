@@ -178,21 +178,31 @@
                         android:paddingHorizontal="@dimen/icon_padding_horizontal" />
 
                     <ImageButton
+                        android:id="@+id/ibParking"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/water_bill"
+                        android:src="@drawable/parking"
                         android:background="#000"
                         android:paddingVertical="@dimen/icon_padding_vertical"
                         android:paddingHorizontal="@dimen/icon_padding_horizontal" />
 
                     <ImageButton
+                        android:id="@+id/ibPostpaid"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/water_bill"
+                        android:src="@drawable/postpaid"
                         android:background="#000"
                         android:paddingVertical="@dimen/icon_padding_vertical"
                         android:paddingHorizontal="@dimen/icon_padding_horizontal" />
 
+                    <ImageButton
+                        android:id="@+id/ibPrepaid"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/prepaid"
+                        android:background="#000"
+                        android:paddingVertical="@dimen/icon_padding_vertical"
+                        android:paddingHorizontal="@dimen/icon_padding_horizontal" />
                 </LinearLayout>
 
             </HorizontalScrollView>
