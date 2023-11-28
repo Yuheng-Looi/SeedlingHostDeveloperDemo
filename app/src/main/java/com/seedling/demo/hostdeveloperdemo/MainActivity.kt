@@ -65,6 +65,11 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, AddCardActivity::class.java )
             startActivity(intent)
         }
+
+        findViewById<ImageButton>(R.id.ibReport).setOnClickListener {
+            val intent = Intent(this, ReportActivity::class.java)
+            startActivity(intent)
+        }
 //        findViewById<Button>(R.id.btn_end_intent).setOnClickListener {
 //            SeedlingTool.sendSeedling(
 //                this,
