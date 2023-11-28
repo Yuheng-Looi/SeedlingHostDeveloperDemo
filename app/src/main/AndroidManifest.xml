@@ -12,10 +12,17 @@
         android:theme="@style/Theme.SeedlingHostDeveloperDemo"
         tools:targetApi="31">
         <activity
+            android:name=".AddCardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddActivity"
+            android:exported="false" />
+        <activity
             android:name=".TestCardClickActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.seedling.demo.hostdeveloperdemo.ACTION_CLICK" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -24,7 +31,7 @@
             android:name=".TestCardClickProvider"
             android:authorities="com.seedling.demo.hostdeveloperdemo.TestCardClickProvider"
             android:enabled="true"
-            android:exported="true"/>
+            android:exported="true" />
 
         <activity
             android:name=".MainActivity"
