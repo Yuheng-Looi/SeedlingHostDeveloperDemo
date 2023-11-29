@@ -11,12 +11,10 @@ import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.github.mikephil.charting.formatter.ValueFormatter
 
-
-@Suppress("DEPRECATION")
 class ReportActivity : AppCompatActivity() {
 
-    lateinit var pieChart: PieChart
-    val expManager = ExpenseManager()
+    private lateinit var pieChart: PieChart
+    private val expManager = ExpenseManager()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_report)
@@ -51,11 +49,11 @@ class ReportActivity : AppCompatActivity() {
         expManager.addExpense(Expense(300f, ExpenseCategory.FOOD_DRINKS, System.currentTimeMillis(), 28, 11, 2023))
         expManager.addExpense(Expense(250F, ExpenseCategory.GIFTS, System.currentTimeMillis(), 27, 11, 2023))
         expManager.addExpense(Expense(50f, ExpenseCategory.BEAUTY, System.currentTimeMillis(), 26, 11, 2023))
-        expManager.addExpense(Expense(250f, ExpenseCategory.FOOD_DRINKS, System.currentTimeMillis(), 29, 1, 2023))
+        expManager.addExpense(Expense(250f, ExpenseCategory.SHOPPING, System.currentTimeMillis(), 29, 1, 2023))
         expManager.addExpense(Expense(250f, ExpenseCategory.GROCERY, System.currentTimeMillis(), 29, 10, 2023))
         expManager.addExpense(Expense(150f, ExpenseCategory.FOOD_DRINKS, System.currentTimeMillis(), 29, 9, 2023))
         expManager.addExpense(Expense(450f, ExpenseCategory.BILLS_FEES, System.currentTimeMillis(), 29, 6, 2023))
-        expManager.addExpense(Expense(650f, ExpenseCategory.TRANSPORT, System.currentTimeMillis(), 29, 11, 2022))
+        expManager.addExpense(Expense(650f, ExpenseCategory.TRANSPORT, System.currentTimeMillis(), 29, 11, 2023))
     }
 
     private fun updatePieChart(expenses: List<Expense>) {
@@ -65,12 +63,23 @@ class ReportActivity : AppCompatActivity() {
             list.add(PieEntry(expense.amount, expense.category.displayName))
         }
 
+        val colors = intArrayOf(
+            Color.rgb(255, 102, 102), // Red
+            Color.rgb(255, 204, 102), // Orange
+            Color.rgb(255, 255, 102), // Yellow
+            Color.rgb(102, 255, 102), // Green
+            Color.rgb(102, 255, 255), // Cyan
+            Color.rgb(102, 102, 255), // Blue
+            Color.rgb(204, 102, 255)  // Purple
+        )
+
         val pieDataSet = PieDataSet(list, "Categories")
-        pieDataSet.setColors(ColorTemplate.MATERIAL_COLORS, 200)
+        pieDataSet.setColors(colors, 255)
         pieDataSet.valueTextSize = 15f
         pieDataSet.valueTextColor = Color.WHITE
         pieDataSet.sliceSpace = 1f
         pieDataSet.xValuePosition = PieDataSet.ValuePosition.OUTSIDE_SLICE
+
 
         val pieData = PieData(pieDataSet)
         pieData.setValueFormatter(object : ValueFormatter() {
