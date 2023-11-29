@@ -43,17 +43,20 @@ class MainActivity : AppCompatActivity() {
             this,
             0,
             Intent(this, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP),
-            PendingIntent.FLAG_IMMUTABLE 
+            PendingIntent.FLAG_IMMUTABLE
         )
 
         val intentFilters = arrayOf(IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED))
-//        val techList = arrayOf(arrayOf<String>()) // You can specify the technologies your app supports
-//        intentFilters.addCategory(Intent.CATEGORY_DEFAULT)
-        handleNFCIntent(intent)
-//        nfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFilters, techList)
+        val techList = arrayOf(arrayOf<String>()) // You can specify the technologies your app support
+//        nfcAdapter?.enableForegroundDispatch(this, pendingIntent, intentFilters, techList)
 
         SeedlingTool.registerResultCallBack(this, arrayOf("pantanal.intent.business.app.system.HOST_CARD_DEMO"))
         initViewClick()
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        handleNFCIntent(intent)
     }
 
     @SuppressLint("SetTextI18n")
@@ -66,6 +69,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleNFCIntent(intent: Intent?) {
         Toast.makeText(this, "reached nfc intent", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, intent?.action, Toast.LENGTH_LONG).show()
         if (intent?.action == NfcAdapter.ACTION_NDEF_DISCOVERED || intent?.action == NfcAdapter.ACTION_TAG_DISCOVERED || intent?.action == NfcAdapter.ACTION_TECH_DISCOVERED) {
             Log.d(TAG, "nfc action detected")
             // Extract data from the intent, if needed

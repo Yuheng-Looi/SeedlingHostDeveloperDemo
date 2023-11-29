@@ -76,6 +76,7 @@
                 android:layout_height="wrap_content"
                 android:background="#000"
                 android:paddingVertical="10dp"
+                android:paddingHorizontal="10dp"
                 android:src="@drawable/menu"
                 app:layout_constraintTop_toBottomOf="@id/profile_pic"
                 app:layout_constraintEnd_toEndOf="parent" />
@@ -88,18 +89,18 @@
                 app:layout_constraintTop_toBottomOf="@id/analytic_title" />
 
             <Button
-                android:id="@+id/btnWeekly"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Weekly"
-                app:layout_constraintTop_toBottomOf="@id/analytic_title"
-                app:layout_constraintEnd_toStartOf="@id/btnMonth"
-                app:layout_constraintStart_toEndOf="@id/btnYearly"/>
-            <Button
-                android:id="@+id/btnMonth"
+                android:id="@+id/btnMonthly"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Monthly"
+                app:layout_constraintTop_toBottomOf="@id/analytic_title"
+                app:layout_constraintEnd_toStartOf="@id/btnDaily"
+                app:layout_constraintStart_toEndOf="@id/btnYearly"/>
+            <Button
+                android:id="@+id/btnDaily"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Daily"
                 app:layout_constraintTop_toBottomOf="@id/analytic_title"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -111,16 +112,13 @@
             android:layout_height="200dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/firstConstraint">
+            app:layout_constraintTop_toBottomOf="@+id/firstConstraint"
+            android:layout_marginVertical="10dp">
 
-            <ImageView
-                android:id="@+id/ivPieChart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/pie_chart"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/pie_chart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

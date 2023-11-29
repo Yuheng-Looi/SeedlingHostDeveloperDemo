@@ -52,6 +52,10 @@
                 <data android:mimeType="text/plain" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <meta-data
+                android:name="android.nfc.action.TECH_DISCOVERED"
+                android:resource="@xml/nfc_tech_filter" />
         </activity>
         <!--
  permission：OPPO内部应用必须配置，外部三方不做要求，必选项->
