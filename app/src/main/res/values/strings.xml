@@ -11,4 +11,5 @@
     <string name="bank_card_image">Bank Card Image</string>
     <string name="oppo_pay">Oppo Pay</string>
     <string name="user_name">Tey Henry</string>
+    <string name="startDetect">Place the back of the device against the NFC reader</string>
 </resources>

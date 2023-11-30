@@ -36,14 +36,12 @@ class MainActivity : AppCompatActivity(), CardSelectionListener {
     private lateinit var nfcAdapter: NfcAdapter
     private lateinit var pendingIntent: PendingIntent
     private lateinit var intentFilters: Array<IntentFilter>
-    private lateinit var techList: Array<Array<String>>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         updateCardInfo()
 
-        // 下面这堆是handle nfc的
         nfcAdapter = NfcAdapter.getDefaultAdapter(this)
         if (nfcAdapter == null) {
             Toast.makeText(this, "NFC Adapter not available", Toast.LENGTH_SHORT).show()
@@ -56,37 +54,35 @@ class MainActivity : AppCompatActivity(), CardSelectionListener {
             PendingIntent.FLAG_IMMUTABLE
         )
 
-        intentFilters = arrayOf(IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED))
-        techList = arrayOf(arrayOf("android.nfc.tech.Ndef"))
-        // nfc 到这里
+        intentFilters = arrayOf(IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED))
+
         SeedlingTool.registerResultCallBack(this, arrayOf("pantanal.intent.business.app.system.HOST_CARD_DEMO"))
         initViewClick()
     }
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-
-        if (intent?.action == NfcAdapter.ACTION_NDEF_DISCOVERED ||
-            intent?.action == NfcAdapter.ACTION_TAG_DISCOVERED ||
-            intent?.action == NfcAdapter.ACTION_TECH_DISCOVERED) {
-            Log.d(TAG, "nfc action detected")
+        Toast.makeText(this, "NewIntent: ${intent?.action}", Toast.LENGTH_LONG).show()
+        if (intent?.action == null) {
+            Log.d(TAG, "nfc(null) action detected")
             // Extract data from the intent, if needed
             // For example, you might want to read data from an NFC tag
             // val tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG) as Tag
             // val data = readDataFromNFC(tag)
 
             // Update the description
-            Toast.makeText(this, "NFC DETECTED: ${intent?.action}", Toast.LENGTH_SHORT).show()
             updateTvDescription()
         }
     }
 
     override fun onResume() {
         super.onResume()
+        Log.d(TAG, "onResume")
         nfcAdapter?.enableForegroundDispatch(this, pendingIntent, intentFilters, null)
     }
 
     private fun updateCardInfo() {
+        Log.d(TAG, "update card info")
         cardList = getCardList()
         card = cardList[cardSelectedPosition]
         Toast.makeText(this, "cardSelectedPosition: $cardSelectedPosition", Toast.LENGTH_SHORT).show()
@@ -97,8 +93,16 @@ class MainActivity : AppCompatActivity(), CardSelectionListener {
     private fun updateTvDescription() {
         val tvDescription = findViewById<TextView>(R.id.tvDescription)
         tvDescription.text = "Pay Successful!"
+        Toast.makeText(this, "Pay Successful!", Toast.LENGTH_SHORT).show()
         val ivCircle = findViewById<ImageView>(R.id.ivTick)
         ivCircle.visibility = View.VISIBLE
+    }
+
+    private fun resetTvDescription() {
+        val tvDescription = findViewById<TextView>(R.id.tvDescription)
+        tvDescription.text = getString(R.string.startDetect)
+        val ivCircle = findViewById<ImageView>(R.id.ivTick)
+        ivCircle.visibility = View.GONE
     }
 
     private fun initViewClick() {
@@ -134,6 +138,10 @@ class MainActivity : AppCompatActivity(), CardSelectionListener {
             bottomSheet.setCardSelectionListener(this)
             bottomSheet.show(supportFragmentManager, bottomSheet.tag)
         }
+
+        findViewById<ImageView>(R.id.ivBankCard).setOnClickListener {
+            resetTvDescription()
+        }
 //        findViewById<Button>(R.id.btn_end_intent).setOnClickListener {
 //            SeedlingTool.sendSeedling(
 //                this,
@@ -157,10 +165,6 @@ class MainActivity : AppCompatActivity(), CardSelectionListener {
 //                )
 //            }
 //        }
-    }
-
-    private fun cardSelection(){
-
     }
 
     override fun onDestroy() {
