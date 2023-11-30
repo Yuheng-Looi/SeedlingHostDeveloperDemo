@@ -3,6 +3,7 @@ package com.seedling.demo.hostdeveloperdemo
 import android.annotation.SuppressLint
 import android.app.PendingIntent
 import android.content.Intent
+import android.content.IntentFilter
 import android.nfc.NfcAdapter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -32,34 +33,57 @@ class MainActivity : AppCompatActivity(), CardSelectionListener {
     private lateinit var recyclerView: RecyclerView
     private lateinit var card: Card
 
+    private lateinit var nfcAdapter: NfcAdapter
+    private lateinit var pendingIntent: PendingIntent
+    private lateinit var intentFilters: Array<IntentFilter>
+    private lateinit var techList: Array<Array<String>>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         updateCardInfo()
-        val nfcAdapter = NfcAdapter.getDefaultAdapter(this)
+
+        // 下面这堆是handle nfc的
+        nfcAdapter = NfcAdapter.getDefaultAdapter(this)
         if (nfcAdapter == null) {
             Toast.makeText(this, "NFC Adapter not available", Toast.LENGTH_SHORT).show()
         }
 
-//        val pendingIntent = PendingIntent.getActivity(
-//            this,
-//            0,
-//            Intent(this, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP),
-//            PendingIntent.FLAG_IMMUTABLE
-//        )
-//
-//        val intentFilters = arrayOf(IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED))
-//        val techList = arrayOf(arrayOf<String>()) // You can specify the technologies your app support
-//        nfcAdapter?.enableForegroundDispatch(this, pendingIntent, intentFilters, techList)
+        pendingIntent = PendingIntent.getActivity(
+            this,
+            0,
+            Intent(this, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP),
+            PendingIntent.FLAG_IMMUTABLE
+        )
 
+        intentFilters = arrayOf(IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED))
+        techList = arrayOf(arrayOf("android.nfc.tech.Ndef"))
+        // nfc 到这里
         SeedlingTool.registerResultCallBack(this, arrayOf("pantanal.intent.business.app.system.HOST_CARD_DEMO"))
         initViewClick()
     }
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        handleNFCIntent(intent)
+
+        if (intent?.action == NfcAdapter.ACTION_NDEF_DISCOVERED ||
+            intent?.action == NfcAdapter.ACTION_TAG_DISCOVERED ||
+            intent?.action == NfcAdapter.ACTION_TECH_DISCOVERED) {
+            Log.d(TAG, "nfc action detected")
+            // Extract data from the intent, if needed
+            // For example, you might want to read data from an NFC tag
+            // val tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG) as Tag
+            // val data = readDataFromNFC(tag)
+
+            // Update the description
+            Toast.makeText(this, "NFC DETECTED: ${intent?.action}", Toast.LENGTH_SHORT).show()
+            updateTvDescription()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        nfcAdapter?.enableForegroundDispatch(this, pendingIntent, intentFilters, null)
     }
 
     private fun updateCardInfo() {
@@ -75,22 +99,6 @@ class MainActivity : AppCompatActivity(), CardSelectionListener {
         tvDescription.text = "Pay Successful!"
         val ivCircle = findViewById<ImageView>(R.id.ivTick)
         ivCircle.visibility = View.VISIBLE
-    }
-
-    private fun handleNFCIntent(intent: Intent?) {
-        Toast.makeText(this, "reached nfc intent", Toast.LENGTH_SHORT).show()
-        Toast.makeText(this, intent?.action, Toast.LENGTH_LONG).show()
-        if (intent?.action == NfcAdapter.ACTION_NDEF_DISCOVERED || intent?.action == NfcAdapter.ACTION_TAG_DISCOVERED || intent?.action == NfcAdapter.ACTION_TECH_DISCOVERED) {
-            Log.d(TAG, "nfc action detected")
-            // Extract data from the intent, if needed
-            // For example, you might want to read data from an NFC tag
-            // val tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG) as Tag
-            // val data = readDataFromNFC(tag)
-
-            // Update the description
-            Toast.makeText(this, "NFC DETECTED", Toast.LENGTH_SHORT).show()
-            updateTvDescription()
-        }
     }
 
     private fun initViewClick() {
