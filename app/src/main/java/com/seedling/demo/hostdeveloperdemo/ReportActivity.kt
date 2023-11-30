@@ -53,7 +53,7 @@ class ReportActivity : AppCompatActivity() {
         expManager.addExpense(Expense(250f, ExpenseCategory.GROCERY, System.currentTimeMillis(), 29, 10, 2023))
         expManager.addExpense(Expense(150f, ExpenseCategory.FOOD_DRINKS, System.currentTimeMillis(), 29, 9, 2023))
         expManager.addExpense(Expense(450f, ExpenseCategory.BILLS_FEES, System.currentTimeMillis(), 29, 6, 2023))
-        expManager.addExpense(Expense(650f, ExpenseCategory.TRANSPORT, System.currentTimeMillis(), 29, 11, 2023))
+        expManager.addExpense(Expense(650f, ExpenseCategory.TRANSPORT, System.currentTimeMillis(), 20, 11, 2023))
     }
 
     private fun updatePieChart(expenses: List<Expense>) {

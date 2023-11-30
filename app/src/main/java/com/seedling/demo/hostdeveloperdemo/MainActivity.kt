@@ -3,51 +3,54 @@ package com.seedling.demo.hostdeveloperdemo
 import android.annotation.SuppressLint
 import android.app.PendingIntent
 import android.content.Intent
-import android.content.IntentFilter
 import android.nfc.NfcAdapter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.content.res.AppCompatResources
-import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
-import com.oplus.pantanal.seedling.bean.SeedlingCard
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.oplus.pantanal.seedling.bean.SeedlingIntent
 import com.oplus.pantanal.seedling.bean.SeedlingIntentFlagEnum
 import com.oplus.pantanal.seedling.intent.IIntentResultCallBack
 import com.oplus.pantanal.seedling.util.SeedlingTool
-import org.json.JSONObject
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), CardSelectionListener {
 
     companion object{
         const val TAG = "MainActivity"
+        var cardSelectedPosition = 0
+        lateinit var cardList: List<Card>
     }
+
+    private lateinit var dialog: BottomSheetDialog
+    private lateinit var cardAdaptor: CardSelectionAdapter
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var card: Card
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        updateCardInfo()
         val nfcAdapter = NfcAdapter.getDefaultAdapter(this)
         if (nfcAdapter == null) {
             Toast.makeText(this, "NFC Adapter not available", Toast.LENGTH_SHORT).show()
-
         }
 
-        val pendingIntent = PendingIntent.getActivity(
-            this,
-            0,
-            Intent(this, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP),
-            PendingIntent.FLAG_IMMUTABLE
-        )
-
-        val intentFilters = arrayOf(IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED))
-        val techList = arrayOf(arrayOf<String>()) // You can specify the technologies your app support
+//        val pendingIntent = PendingIntent.getActivity(
+//            this,
+//            0,
+//            Intent(this, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP),
+//            PendingIntent.FLAG_IMMUTABLE
+//        )
+//
+//        val intentFilters = arrayOf(IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED))
+//        val techList = arrayOf(arrayOf<String>()) // You can specify the technologies your app support
 //        nfcAdapter?.enableForegroundDispatch(this, pendingIntent, intentFilters, techList)
 
         SeedlingTool.registerResultCallBack(this, arrayOf("pantanal.intent.business.app.system.HOST_CARD_DEMO"))
@@ -57,6 +60,13 @@ class MainActivity : AppCompatActivity() {
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         handleNFCIntent(intent)
+    }
+
+    private fun updateCardInfo() {
+        cardList = getCardList()
+        card = cardList[cardSelectedPosition]
+        Toast.makeText(this, "cardSelectedPosition: $cardSelectedPosition", Toast.LENGTH_SHORT).show()
+        findViewById<TextView>(R.id.bank_info).text = "${card.cardNumber}\n${card.cardHolderName}"
     }
 
     @SuppressLint("SetTextI18n")
@@ -98,6 +108,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             )
+            updateTvDescription()
         }
 
         findViewById<ImageButton>(R.id.ibAddCard).setOnClickListener {
@@ -108,6 +119,12 @@ class MainActivity : AppCompatActivity() {
         findViewById<ImageButton>(R.id.ibReport).setOnClickListener {
             val intent = Intent(this, ReportActivity::class.java)
             startActivity(intent)
+        }
+
+        findViewById<ImageButton>(R.id.ibSwapCard).setOnClickListener {
+            val bottomSheet = CardSelectionBottomSheet()
+            bottomSheet.setCardSelectionListener(this)
+            bottomSheet.show(supportFragmentManager, bottomSheet.tag)
         }
 //        findViewById<Button>(R.id.btn_end_intent).setOnClickListener {
 //            SeedlingTool.sendSeedling(
@@ -134,8 +151,29 @@ class MainActivity : AppCompatActivity() {
 //        }
     }
 
+    private fun cardSelection(){
+
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         SeedlingTool.unRegisterResultCallBack(this)
     }
+
+    private fun getCardList(): List<Card> {
+        // Implement this method to return a list of cards
+        // You can fetch this list from your data source (e.g., database, API)
+        // For now, I'm providing a sample list
+        return listOf(
+            Card("Card 1", "Name1", "visa"),
+            Card("Card 2", "Yu Heng", "tng"),
+            Card("Card 3", "Henry", "any")
+            // Add more cards as needed
+        )
+    }
+
+    override fun onCardSelected(selectedCard: Card) {
+        updateCardInfo()
+    }
+
 }

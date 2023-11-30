@@ -167,7 +167,8 @@
         "uiEvent": {
             "clickBtn": {
                 "type": "deeplink",
-                "uri":"nativeapp://com.seedling.demo.hostdeveloperdemo.ACTION_CLICK",
+                "uri":"nativeapp://android.intent.action.VIEW",
+                "data":"",
                 "params": {
                     "travelId":"{{title}}",
                     "trainNumber":"{{describe}}"
