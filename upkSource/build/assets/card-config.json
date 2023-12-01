@@ -14,8 +14,8 @@
 		}
 	],
 	"host": {
-		"packageName": "com.seedling.demo.hostdeveloperdemo",
-		"componentName": "com.seedling.demo.hostdeveloperdemo.CardLifeCycleProvider",
-		"minHostVersion": 1
+		"packageName": "com.oplus.pantanal.ums",
+		"componentName": "com.oplus.ums.dynamic.card.AppCardWidgetProvider",
+		"minHostVersion": 13001003
 	}
 }

@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlin.properties.Delegates
 
 class CardSelectionAdapter(
-    private var cardList : List<Card>,
-    private val onItemSelectedListener: (position: Int, card: Card) -> Unit
+    private var cardList : MutableList<Card>,
+    private val onItemSelectedListener: (card: Card) -> Unit
 ) : RecyclerView.Adapter<CardSelectionAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -48,14 +48,14 @@ class CardSelectionAdapter(
         holder.itemView.setOnClickListener {
             // Update the selectedPosition and notify data set changed
             MainActivity.cardSelectedPosition = holder.adapterPosition
-            onItemSelectedListener.invoke(position, card)
+            onItemSelectedListener.invoke(card)
             notifyDataSetChanged()
         }
 
         holder.radioButton.setOnClickListener {
             // Update the selectedPosition and notify data set changed
             MainActivity.cardSelectedPosition = holder.adapterPosition
-            onItemSelectedListener.invoke(position, card)
+            onItemSelectedListener.invoke(card)
             notifyDataSetChanged()
         }
     }

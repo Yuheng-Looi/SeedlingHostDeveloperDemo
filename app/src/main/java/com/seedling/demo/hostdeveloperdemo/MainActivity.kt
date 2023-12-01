@@ -5,6 +5,10 @@ import android.app.PendingIntent
 import android.content.Intent
 import android.content.IntentFilter
 import android.nfc.NfcAdapter
+import android.nfc.Tag
+import android.nfc.tech.MifareClassic
+import android.nfc.tech.NdefFormatable
+import android.nfc.tech.NfcA
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -20,12 +24,12 @@ import com.oplus.pantanal.seedling.bean.SeedlingIntentFlagEnum
 import com.oplus.pantanal.seedling.intent.IIntentResultCallBack
 import com.oplus.pantanal.seedling.util.SeedlingTool
 
+@Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity(), CardSelectionListener {
 
     companion object{
         const val TAG = "MainActivity"
         var cardSelectedPosition = 0
-        lateinit var cardList: List<Card>
     }
 
     private lateinit var dialog: BottomSheetDialog
@@ -33,14 +37,20 @@ class MainActivity : AppCompatActivity(), CardSelectionListener {
     private lateinit var recyclerView: RecyclerView
     private lateinit var card: Card
 
+    private lateinit var cardList: CardList
+
     private lateinit var nfcAdapter: NfcAdapter
     private lateinit var pendingIntent: PendingIntent
     private lateinit var intentFilters: Array<IntentFilter>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         updateCardInfo()
+
+        cardList = CardList()
+        cardList.initCardList()
 
         nfcAdapter = NfcAdapter.getDefaultAdapter(this)
         if (nfcAdapter == null) {
@@ -51,7 +61,7 @@ class MainActivity : AppCompatActivity(), CardSelectionListener {
             this,
             0,
             Intent(this, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP),
-            PendingIntent.FLAG_IMMUTABLE
+            PendingIntent.FLAG_MUTABLE
         )
 
         intentFilters = arrayOf(IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED))
@@ -62,17 +72,58 @@ class MainActivity : AppCompatActivity(), CardSelectionListener {
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        Toast.makeText(this, "NewIntent: ${intent?.action}", Toast.LENGTH_LONG).show()
-        if (intent?.action == null) {
-            Log.d(TAG, "nfc(null) action detected")
+//        Toast.makeText(this, "NewIntent: ${intent?.action}", Toast.LENGTH_LONG).show()
+        if (intent?.action == NfcAdapter.ACTION_TAG_DISCOVERED) {
+            Log.d(TAG, "nfc TAG detected")
             // Extract data from the intent, if needed
             // For example, you might want to read data from an NFC tag
-            // val tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG) as Tag
-            // val data = readDataFromNFC(tag)
+            val tag : Tag? = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG)
+//             val data = readDataFromNFC(tag)
+            if (tag != null) {
+                readNfcTag(tag)
+            }
 
             // Update the description
             updateTvDescription()
         }
+    }
+
+    private fun readNfcTag(tag: Tag) {
+
+        cardList.addCard(tag.id.toString(), "Yu Heng", NfcA.get(tag).sak.toString())
+//        val technologies = tag.techList
+
+//        for (tech in technologies) {
+//            when (tech) {
+//                NfcA::class.java.name -> readNfcA(tag)
+//                MifareClassic::class.java.name -> readMifareClassic(tag)
+//                NdefFormatable::class.java.name -> handleNdefFormatable(tag)
+//                // Add more cases for other supported technologies as needed
+//            }
+//        }
+    }
+
+    private fun readNfcA(tag: Tag) {
+        // Handle NfcA technology
+//        val nfcA = NfcA.get(tag)
+//        val uid = nfcA!!.sak // Example: Get the Select Application Code (SAK) as an integer
+//        updateNfcInfo("SAK: $uid")
+    }
+
+    private fun readMifareClassic(tag: Tag) {
+        // Handle MifareClassic technology
+        // Example: val mifareClassic = MifareClassic.get(tag)
+        // Read data from MifareClassic tag...
+    }
+
+    private fun handleNdefFormatable(tag: Tag) {
+        // Handle NdefFormatable technology
+        // Example: val ndefFormatable = NdefFormatable.get(tag)
+        // Format the tag or perform other actions...
+    }
+
+    private fun updateNfcInfo(nfcInfo: String) {
+        findViewById<TextView>(R.id.nfc_info).text = nfcInfo
     }
 
     override fun onResume() {
@@ -83,8 +134,8 @@ class MainActivity : AppCompatActivity(), CardSelectionListener {
 
     private fun updateCardInfo() {
         Log.d(TAG, "update card info")
-        cardList = getCardList()
-        card = cardList[cardSelectedPosition]
+
+        //TODO: ACCESS THE CARD SELECTED - val card = ??
         Toast.makeText(this, "cardSelectedPosition: $cardSelectedPosition", Toast.LENGTH_SHORT).show()
         findViewById<TextView>(R.id.bank_info).text = "${card.cardNumber}\n${card.cardHolderName}"
     }
@@ -142,6 +193,8 @@ class MainActivity : AppCompatActivity(), CardSelectionListener {
         findViewById<ImageView>(R.id.ivBankCard).setOnClickListener {
             resetTvDescription()
         }
+
+
 //        findViewById<Button>(R.id.btn_end_intent).setOnClickListener {
 //            SeedlingTool.sendSeedling(
 //                this,
@@ -170,18 +223,6 @@ class MainActivity : AppCompatActivity(), CardSelectionListener {
     override fun onDestroy() {
         super.onDestroy()
         SeedlingTool.unRegisterResultCallBack(this)
-    }
-
-    private fun getCardList(): List<Card> {
-        // Implement this method to return a list of cards
-        // You can fetch this list from your data source (e.g., database, API)
-        // For now, I'm providing a sample list
-        return listOf(
-            Card("Card 1", "Name1", "visa"),
-            Card("Card 2", "Yu Heng", "tng"),
-            Card("Card 3", "Henry", "any")
-            // Add more cards as needed
-        )
     }
 
     override fun onCardSelected(selectedCard: Card) {
