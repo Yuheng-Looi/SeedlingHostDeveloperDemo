@@ -26,8 +26,8 @@ class CardSelectionBottomSheet : BottomSheetDialogFragment() {
 
         val recyclerView: RecyclerView = view.findViewById(R.id.rvCardSelection)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        val adapter = CardSelectionAdapter(MainActivity.cardList) {
-            position, card -> cardSelectionListener?.onCardSelected(card)
+        val adapter = CardSelectionAdapter(CardList().cards) {
+            card -> cardSelectionListener?.onCardSelected(card)
         }
         if (MainActivity.cardSelectedPosition < 0) MainActivity.cardSelectedPosition = 0
         recyclerView.adapter = adapter

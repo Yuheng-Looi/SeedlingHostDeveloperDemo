@@ -103,4 +103,6 @@ class ReportActivity : AppCompatActivity() {
     private fun showAmount() {
         // TODO: SHOW THE PIE CHART VALUE IN AMOUNT
     }
+
+    // TODO: CREATE MOCK INTERFACE FOR PAY BILLS
 }
