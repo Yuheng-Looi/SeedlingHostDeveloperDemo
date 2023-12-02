@@ -1,0 +1,56 @@
+﻿
+<template>
+    <card-template entry="notification" category="symmetry">
+        <image level="0:A*" src="{{ symmetry_logo }}"></image>
+        <text level="1:B*">{{ symmetry_additional }}</text>
+        <div level="5:F" bg-image="{{ symmetry_bg }}">
+          <div level="6-1:G1" bg-image="{{ symmetry_bg }}">
+            <image level="0-1:A1*" src="{{ symmetry_logo }}"></image>
+            <text level="2-1:C1">{{symmetry_name}}</text>
+          </div>
+          <text level="1-1:B1*">{{ symmetry_content }}</text>
+          <text level="2-2:C2*">{{ symmetry_number }}</text>
+          <text level="2-3:C3">{{ symmetry_checkIn }}</text>
+          <div level="6:G">
+            <text level="2-4:C4">{{ symmetry_departureLocation }}</text>
+            <text level="2-5:C5">{{ symmetry_destLocation }}</text>
+            <text level="3-1:D1">{{ symmetry_departureTime }}</text>
+            <text level="3-2:D2">{{ symmetry_destTime }}</text>
+            <image level="3-3:D3" src="{{ symmetry_airplane }}"></image>
+            <text level="3-4:D4">{{ symmetry_extraDays }}</text>
+          </div>
+          <button level="4:E" @click="clickButton" type="capsule" value="{{ symmetryBtnText }}"></button>
+        </div>
+    </card-template>
+    
+</template>
+    
+<style>
+</style>
+
+<data>
+    {
+        "uiData": {
+            "symmetry_logo": "assets/images/logo.png",
+        "symmetry_additional": "RM 40.00 has been successfully transferred to Maxis",
+        "symmetry_content": "RM 40.00",
+        "symmetry_airplane": "assets/images/transferring.png",
+        "symmetry_departureTime": "-RM 40.00",
+        "symmetry_destTime": "+RM 40.00",
+        "symmetry_extraDays": "+1",
+        "symmetry_bg": "assets/images/symmetry_bg.png",
+        "symmetry_departureLocation": "TEY HENRY",
+        "symmetry_destLocation": "Maxis",
+        "symmetry_number": "Transfer To",
+        "symmetry_checkIn": "Maxis",
+        "symmetryBtnText": "Report",
+        "symmetry_name": "OPPO Pay",
+        "symmetry_serviceName": "航旅纵横",
+            
+        },
+
+        "uiEvent": {
+        }
+    }
+</data>
+        

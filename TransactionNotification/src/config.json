@@ -1,0 +1,37 @@
+{ 
+    "identifier": {
+        "url": "test_host_demo_1",
+        "id": "268452000",
+        "type": "seedling",
+        "name": "TransactionNotification",
+        "version": "1.0.1",
+        "versionCode": 1000001
+    },
+    "intent": {
+        "action": ["pantanal.intent.business.app.system.HOST_CARD_DEMO"],
+        "domain": "business_app_system"
+    },
+    "runtime": {
+        "type": "interactive",
+        "permission": [],
+        "use-software": {
+            "platform-version": 2000000
+        },
+        "support-hardware": {
+            "device": [{
+                "type": "PHONE",
+                "entry": ["aod","statusbar","notification","lockscreen","headset","secondarylockscreen","secondarynotification"]
+            }]
+        },
+        "interactive": {
+            "pages": ["pages/index"],
+            "window": {
+                "design-width": 328,
+                "auto-design-width": false
+            }
+        }
+    },
+    "meta-data": {
+        "card-config": "assets/card-config.json"
+    }
+}

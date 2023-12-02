@@ -79,6 +79,8 @@
             <meta-data
                 android:name="oplus.seedling.provider"
                 android:value="SeedlingDemo.upk" />
+
+            
         </provider> <!-- 接入泛在服务，首先需要去OPPO开放平台申请授权码。 咨询产品或者商务，必须 -->
         <meta-data
             android:name="com.oplus.ocs.card.AUTH_CODE"

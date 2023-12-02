@@ -1,0 +1,161 @@
+{
+  "template": [
+    {
+      "type": "card-template",
+      "attr": {
+        "entry": "notification",
+        "category": "symmetry"
+      },
+      "children": [
+        {
+          "type": "image",
+          "attr": {
+            "level": "0:A*",
+            "src": "{{symmetry_logo}}"
+          }
+        },
+        {
+          "type": "text",
+          "attr": {
+            "level": "1:B*",
+            "value": "{{symmetry_additional}}"
+          }
+        },
+        {
+          "type": "div",
+          "attr": {
+            "level": "5:F",
+            "bgImage": "{{symmetry_bg}}"
+          },
+          "children": [
+            {
+              "type": "div",
+              "attr": {
+                "level": "6-1:G1",
+                "bgImage": "{{symmetry_bg}}"
+              },
+              "children": [
+                {
+                  "type": "image",
+                  "attr": {
+                    "level": "0-1:A1*",
+                    "src": "{{symmetry_logo}}"
+                  }
+                },
+                {
+                  "type": "text",
+                  "attr": {
+                    "level": "2-1:C1",
+                    "value": "{{symmetry_name}}"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "attr": {
+                "level": "1-1:B1*",
+                "value": "{{symmetry_content}}"
+              }
+            },
+            {
+              "type": "text",
+              "attr": {
+                "level": "2-2:C2*",
+                "value": "{{symmetry_number}}"
+              }
+            },
+            {
+              "type": "text",
+              "attr": {
+                "level": "2-3:C3",
+                "value": "{{symmetry_checkIn}}"
+              }
+            },
+            {
+              "type": "div",
+              "attr": {
+                "level": "6:G"
+              },
+              "children": [
+                {
+                  "type": "text",
+                  "attr": {
+                    "level": "2-4:C4",
+                    "value": "{{symmetry_departureLocation}}"
+                  }
+                },
+                {
+                  "type": "text",
+                  "attr": {
+                    "level": "2-5:C5",
+                    "value": "{{symmetry_destLocation}}"
+                  }
+                },
+                {
+                  "type": "text",
+                  "attr": {
+                    "level": "3-1:D1",
+                    "value": "{{symmetry_departureTime}}"
+                  }
+                },
+                {
+                  "type": "text",
+                  "attr": {
+                    "level": "3-2:D2",
+                    "value": "{{symmetry_destTime}}"
+                  }
+                },
+                {
+                  "type": "image",
+                  "attr": {
+                    "level": "3-3:D3",
+                    "src": "{{symmetry_airplane}}"
+                  }
+                },
+                {
+                  "type": "text",
+                  "attr": {
+                    "level": "3-4:D4",
+                    "value": "{{symmetry_extraDays}}"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "button",
+              "attr": {
+                "level": "4:E",
+                "type": "capsule",
+                "value": "{{symmetryBtnText}}"
+              },
+              "events": {
+                "click": "clickButton"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "data": {
+    "symmetry_logo": "assets/images/logo.png",
+    "symmetry_additional": "RM 40.00 has been successfully transferred to Maxis",
+    "symmetry_content": "RM 40.00",
+    "symmetry_airplane": "assets/images/transferring.png",
+    "symmetry_departureTime": "-RM 40.00",
+    "symmetry_destTime": "+RM 40.00",
+    "symmetry_extraDays": "+1",
+    "symmetry_bg": "assets/images/symmetry_bg.png",
+    "symmetry_departureLocation": "TEY HENRY",
+    "symmetry_destLocation": "Maxis",
+    "symmetry_number": "Transfer To",
+    "symmetry_checkIn": "Maxis",
+    "symmetryBtnText": "Report",
+    "symmetry_name": "OPPO Pay",
+    "symmetry_serviceName": "航旅纵横"
+  },
+  "actions": {},
+  "styles": {},
+  "apiVersion": {}
+}
