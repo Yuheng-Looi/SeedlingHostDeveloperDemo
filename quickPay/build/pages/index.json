@@ -1,0 +1,369 @@
+{
+  "template": [
+    {
+      "type": "card-template",
+      "attr": {
+        "entry": "desktop"
+      },
+      "events": {
+        "click": "clickBtn"
+      },
+      "children": [
+        {
+          "type": "div",
+          "attr": {},
+          "classList": [
+            "container"
+          ],
+          "children": [
+            {
+              "type": "div",
+              "attr": {},
+              "classList": [
+                "top"
+              ],
+              "children": [
+                {
+                  "type": "image",
+                  "attr": {
+                    "src": "assets/images/logo.png"
+                  },
+                  "classList": [
+                    "icon"
+                  ]
+                },
+                {
+                  "type": "text",
+                  "attr": {
+                    "value": "{{title}}"
+                  },
+                  "classList": [
+                    "text",
+                    "title"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "div",
+              "attr": {},
+              "classList": [
+                "center"
+              ],
+              "children": [
+                {
+                  "type": "div",
+                  "attr": {},
+                  "classList": [
+                    "bigCard"
+                  ],
+                  "children": [
+                    {
+                      "type": "div",
+                      "attr": {},
+                      "classList": [
+                        "message"
+                      ],
+                      "children": [
+                        {
+                          "type": "image",
+                          "attr": {
+                            "src": "assets/images/report.png"
+                          },
+                          "classList": [
+                            "image"
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "attr": {
+                            "value": "{{describe}}"
+                          },
+                          "classList": [
+                            "text",
+                            "describe"
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "div",
+                      "attr": {},
+                      "classList": [
+                        "message"
+                      ],
+                      "children": [
+                        {
+                          "type": "image",
+                          "attr": {
+                            "src": "assets/images/wallet.png"
+                          },
+                          "classList": [
+                            "image"
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "attr": {
+                            "value": "{{describe1}}"
+                          },
+                          "classList": [
+                            "text",
+                            "describe"
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "div",
+                      "attr": {},
+                      "classList": [
+                        "message"
+                      ],
+                      "children": [
+                        {
+                          "type": "image",
+                          "attr": {
+                            "src": "assets/images/nfc.png"
+                          },
+                          "classList": [
+                            "image"
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "attr": {
+                            "value": "{{describe2}}"
+                          },
+                          "classList": [
+                            "text",
+                            "describe"
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "div",
+                      "attr": {},
+                      "classList": [
+                        "message"
+                      ],
+                      "children": [
+                        {
+                          "type": "image",
+                          "attr": {
+                            "src": "assets/images/Frame 4.png"
+                          },
+                          "classList": [
+                            "image"
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "attr": {
+                            "value": "{{describe3}}"
+                          },
+                          "classList": [
+                            "text",
+                            "describe"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "div",
+                  "attr": {},
+                  "classList": [
+                    "middleCard"
+                  ],
+                  "children": [
+                    {
+                      "type": "div",
+                      "attr": {},
+                      "classList": [
+                        "message"
+                      ],
+                      "children": [
+                        {
+                          "type": "image",
+                          "attr": {
+                            "src": "assets/images/bigRound.png"
+                          },
+                          "classList": [
+                            "image"
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "attr": {
+                            "value": "{{$t('strings.describe')}}"
+                          },
+                          "classList": [
+                            "text",
+                            "describe"
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "div",
+                      "attr": {},
+                      "classList": [
+                        "message"
+                      ],
+                      "children": [
+                        {
+                          "type": "image",
+                          "attr": {
+                            "src": "assets/images/bigRound.png"
+                          },
+                          "classList": [
+                            "image"
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "attr": {
+                            "value": "{{$t('strings.describe')}}"
+                          },
+                          "classList": [
+                            "text",
+                            "describe"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "data": {
+    "title": "Pay with OPPO Pay",
+    "describe": "Report",
+    "describe1": "Wallet",
+    "describe2": "NFC",
+    "describe3": "Transfer"
+  },
+  "actions": {
+    "clickBtn": {
+      "type": "deeplink",
+      "uri": "com.oplus.sceneservice.scene.seedling.route",
+      "params": {
+        "method": "train_click",
+        "travelId": "{{title}}",
+        "trainNumber": "{{describe}}"
+      }
+    }
+  },
+  "styles": {
+    ".container": {
+      "width": "100%",
+      "height": "100%",
+      "paddingTop": "16px",
+      "paddingRight": "22px",
+      "paddingBottom": "0px",
+      "paddingLeft": "22px",
+      "flexDirection": "column",
+      "backgroundColor": "#B9FBD7"
+    },
+    ".top": {
+      "minHeight": "20px",
+      "alignItems": "center",
+      "marginBottom": "24px"
+    },
+    ".text": {
+      "fontFamily": "sys-sans-en",
+      "fontWeight": "400",
+      "fontSize": "14px",
+      "color": "rgba(0,0,0,0.85)"
+    },
+    ".title": {
+      "marginLeft": "6px"
+    },
+    ".icon": {
+      "width": "20px",
+      "height": "20px"
+    },
+    ".center": {
+      "width": "100%",
+      "height": "64px",
+      "justifyContent": "space-between"
+    },
+    ".bigCard": {
+      "width": "100%",
+      "height": "64px",
+      "justifyContent": "space-between"
+    },
+    ".image": {
+      "width": "40px",
+      "height": "40px"
+    },
+    ".message": {
+      "flexDirection": "column",
+      "justifyContent": "space-between",
+      "alignItems": "center"
+    },
+    ".describe": {
+      "fontWeight": "400",
+      "fontSize": "14px",
+      "color": "rgba(0,0,0,0.6)"
+    },
+    ".middleCard": {
+      "display": "none",
+      "width": "100%",
+      "height": "64px",
+      "justifyContent": "space-between"
+    },
+    "@MEDIA": [
+      {
+        "condition": "(aspect-ratio: 1*2)",
+        ".container": {
+          "paddingTop": "12px",
+          "paddingRight": "24px",
+          "paddingBottom": "0px",
+          "paddingLeft": "24px"
+        },
+        ".top": {
+          "display": "none"
+        },
+        ".image": {
+          "width": "32px",
+          "height": "32px"
+        },
+        ".bigCard": {
+          "display": "none"
+        },
+        ".middleCard": {
+          "display": "flex",
+          "height": "53.1px"
+        },
+        ".describe": {
+          "fontSize": "12px"
+        }
+      },
+      {
+        "condition": "(aspect-ratio: 2*2)",
+        ".container": {
+          "paddingTop": "16px",
+          "paddingRight": "16px",
+          "paddingBottom": "0px",
+          "paddingLeft": "16px"
+        },
+        ".bigCard": {
+          "display": "none"
+        },
+        ".middleCard": {
+          "display": "flex"
+        }
+      }
+    ]
+  },
+  "apiVersion": {}
+}
