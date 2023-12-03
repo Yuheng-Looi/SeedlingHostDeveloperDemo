@@ -105,4 +105,5 @@ class ReportActivity : AppCompatActivity() {
     }
 
     // TODO: CREATE MOCK INTERFACE FOR PAY BILLS
+    // TODO: URGENT: show the transaction history with expandable area (hide/show) according to the category chosen
 }

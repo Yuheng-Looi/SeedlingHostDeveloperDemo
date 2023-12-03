@@ -7,8 +7,7 @@
         android:required="false" />
 
     <uses-permission android:name="android.permission.NFC" />
-
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -20,16 +19,32 @@
         android:theme="@style/Theme.SeedlingHostDeveloperDemo"
         tools:targetApi="31">
         <activity
+            android:name=".BankTransferActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ReceiveQrActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.journeyapps.barcodescanner.CaptureActivity"
+            android:screenOrientation="fullSensor"
+            tools:replace="android:screenOrientation" />
+        <activity
+            android:name=".PaymentActivity"
+            android:exported="false" />
+        <activity
             android:name=".ReportActivity"
             android:exported="false" />
         <activity
             android:name=".AddCardActivity"
-            android:exported="false" >
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.nfc.action.TAG_DISCOVERED" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="text/plain" />
             </intent-filter>
+
             <meta-data
                 android:name="android.nfc.action.TECH_DISCOVERED"
                 android:resource="@xml/nfc_tech_filter" />
@@ -56,8 +71,11 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.nfc.action.TAG_DISCOVERED" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="text/plain" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
@@ -82,8 +100,6 @@
             <meta-data
                 android:name="oplus.seedling.provider"
                 android:value="SeedlingDemo.upk" />
-
-            
         </provider> <!-- 接入泛在服务，首先需要去OPPO开放平台申请授权码。 咨询产品或者商务，必须 -->
         <meta-data
             android:name="com.oplus.ocs.card.AUTH_CODE"

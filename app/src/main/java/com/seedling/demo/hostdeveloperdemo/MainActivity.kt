@@ -2,8 +2,10 @@ package com.seedling.demo.hostdeveloperdemo
 
 import android.annotation.SuppressLint
 import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.pm.PackageManager
 import android.nfc.NfcAdapter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,14 +15,21 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
+import com.journeyapps.barcodescanner.ScanContract
+import com.journeyapps.barcodescanner.ScanIntentResult
+import com.journeyapps.barcodescanner.ScanOptions
 import com.oplus.pantanal.seedling.bean.SeedlingIntent
 import com.oplus.pantanal.seedling.bean.SeedlingIntentFlagEnum
 import com.oplus.pantanal.seedling.intent.IIntentResultCallBack
 import com.oplus.pantanal.seedling.util.SeedlingTool
+import com.seedling.demo.hostdeveloperdemo.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), CardSelectionListener {
 
     companion object{
+        lateinit var bank_info: String
         const val TAG = "MainActivity"
         var cardSelectedPosition = 0
         lateinit var cardList: CardList
@@ -31,6 +40,41 @@ class MainActivity : AppCompatActivity(), CardSelectionListener {
     private lateinit var nfcAdapter: NfcAdapter
     private lateinit var pendingIntent: PendingIntent
     private lateinit var intentFilters: Array<IntentFilter>
+
+    private val scanLauncher =
+        registerForActivityResult(ScanContract()) { result: ScanIntentResult ->
+            run {
+                if (result.contents == null) {
+                    Toast.makeText(this, "The QR code is INVALID", Toast.LENGTH_SHORT).show()
+                }
+                else {
+                    val intent = Intent(this, PaymentActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+        }
+
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) {
+            isGranted: Boolean ->
+                if (isGranted) {
+                    showCamera()
+                } else {
+                    Toast.makeText(this, "You need to allow CAMERA PERMISSION in setting", Toast.LENGTH_LONG).show()
+                }
+        }
+
+    private fun showCamera() {
+        val options = ScanOptions()
+        options.setDesiredBarcodeFormats(ScanOptions.QR_CODE)
+        options.setPrompt("Scan QR code")
+        options.setCameraId(0)
+        options.setBeepEnabled(false)
+        options.setBarcodeImageEnabled(true)
+        options.setOrientationLocked(false)
+
+        scanLauncher.launch(options)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +99,20 @@ class MainActivity : AppCompatActivity(), CardSelectionListener {
         intentFilters = arrayOf(IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED))
 
         SeedlingTool.registerResultCallBack(this, arrayOf("pantanal.intent.business.app.system.HOST_CARD_DEMO"))
+        // call card
+        SeedlingTool.sendSeedling(
+            this,
+            SeedlingIntent(
+                action = "pantanal.intent.business.app.system.HOST_CARD_DEMO",
+                flag = SeedlingIntentFlagEnum.START
+            ),
+            callBack = object :IIntentResultCallBack{
+                override fun onIntentResult(action: String, flag: Int, isSuccess: Boolean) {
+                    //决策是否成功的回调，不代表卡片是否显示
+                    Log.e(TAG,"isSuccess:${isSuccess}  action:${action}")
+                }
+            }
+        )
         initViewClick()
     }
 
@@ -80,10 +138,10 @@ class MainActivity : AppCompatActivity(), CardSelectionListener {
     private fun updateCardInfo() {
         Log.d(TAG, "update card info")
 
-        //TODO: ACCESS THE CARD SELECTED - val card = ??
         card = cardList.cards.get(cardSelectedPosition)
-        Toast.makeText(this, "cardSelectedPosition: $cardSelectedPosition", Toast.LENGTH_SHORT).show()
-        findViewById<TextView>(R.id.bank_info).text = "${card.cardNumber}\n${card.cardHolderName}"
+//        Toast.makeText(this, "cardSelectedPosition: $cardSelectedPosition", Toast.LENGTH_SHORT).show()
+        bank_info = "${card.cardNumber}\n${card.cardHolderName}"
+        findViewById<TextView>(R.id.bank_info).text = bank_info
     }
 
     @SuppressLint("SetTextI18n")
@@ -104,20 +162,7 @@ class MainActivity : AppCompatActivity(), CardSelectionListener {
 
     private fun initViewClick() {
         findViewById<ImageButton>(R.id.ibScan).setOnClickListener {
-            SeedlingTool.sendSeedling(
-                this,
-                SeedlingIntent(
-                    action = "pantanal.intent.business.app.system.HOST_CARD_DEMO",
-                    flag = SeedlingIntentFlagEnum.START
-                ),
-                callBack = object :IIntentResultCallBack{
-                    override fun onIntentResult(action: String, flag: Int, isSuccess: Boolean) {
-                        //决策是否成功的回调，不代表卡片是否显示
-                        Log.e(TAG,"isSuccess:${isSuccess}  action:${action}")
-                    }
-                }
-            )
-            updateTvDescription()
+            checkPermissionCamera(this)
         }
 
         findViewById<ImageButton>(R.id.ibAddCard).setOnClickListener {
@@ -139,6 +184,16 @@ class MainActivity : AppCompatActivity(), CardSelectionListener {
 
         findViewById<ImageView>(R.id.ivBankCard).setOnClickListener {
             resetTvDescription()
+        }
+
+        findViewById<ImageButton>(R.id.ibBank).setOnClickListener {
+            val intent = Intent(this, BankTransferActivity::class.java)
+            startActivity(intent)
+        }
+
+        findViewById<ImageButton>(R.id.ibQrCode).setOnClickListener {
+            val intent = Intent(this, ReceiveQrActivity::class.java)
+            startActivity(intent)
         }
 
 
@@ -165,6 +220,17 @@ class MainActivity : AppCompatActivity(), CardSelectionListener {
 //                )
 //            }
 //        }
+    }
+
+    private fun checkPermissionCamera(context: Context) {
+        if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.CAMERA)
+            == PackageManager.PERMISSION_GRANTED) {
+            showCamera()
+        } else if (shouldShowRequestPermissionRationale(android.Manifest.permission.CAMERA)) {
+            Toast.makeText(context, "CAMERA permission required", Toast.LENGTH_SHORT).show()
+        } else {
+            requestPermissionLauncher.launch(android.Manifest.permission.CAMERA)
+        }
     }
 
     override fun onDestroy() {

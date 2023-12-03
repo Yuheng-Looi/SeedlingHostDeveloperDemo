@@ -220,7 +220,7 @@
                 android:id="@+id/tvOthers"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Others"
+                android:text="Report"
                 android:textColor="#fff"
                 android:textSize="@dimen/title_text_size"
                 android:paddingBottom="10dp"
@@ -238,17 +238,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvOthers" />
 
-            <ImageButton
-                android:id="@+id/ibOppoCoin"
-                android:layout_width="@dimen/icon_width"
-                android:layout_height="@dimen/icon_height"
-                android:src="@drawable/oppo_coin"
-                android:background="#000"
-                android:paddingHorizontal="@dimen/icon_padding_horizontal"
-                android:paddingVertical="@dimen/icon_padding_vertical"
-                app:layout_constraintTop_toBottomOf="@+id/tvOthers"
-                app:layout_constraintStart_toEndOf="@id/ibReport"/>
-
             <TextView
                 android:id="@+id/tvReport"
                 android:layout_width="@dimen/icon_width"
@@ -259,16 +248,6 @@
                 android:textSize="@dimen/icon_text_size"
                 app:layout_constraintTop_toBottomOf="@+id/ibReport"
                 app:layout_constraintStart_toStartOf="parent"/>
-
-            <TextView
-                android:layout_width="@dimen/icon_width"
-                android:layout_height="wrap_content"
-                android:text="@string/oppocoin"
-                android:textColor="#fff"
-                android:textAlignment="center"
-                android:textSize="@dimen/icon_text_size"
-                app:layout_constraintTop_toBottomOf="@+id/ibOppoCoin"
-                app:layout_constraintLeft_toRightOf="@+id/tvReport"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
