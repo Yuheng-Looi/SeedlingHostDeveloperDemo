@@ -16,6 +16,7 @@ import android.content.SharedPreferences
 import android.util.Log
 import com.oplus.pantanal.seedling.bean.SeedlingCard
 
+
 class SharedPreferencesUtil private constructor() {
     companion object {
         private const val TAG = "SharedPreferencesUtil"

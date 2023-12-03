@@ -1,0 +1,14 @@
+{
+	"strings": {
+		"symmetry_name": "ServiceName",
+		"symmetry_additional": "Now boarding at gate 41",
+		"symmetry_content": "Boarding",
+		"symmetry_departureLocation": "Shenzhen Bao'an International Airport",
+		"symmetry_destLocation": "Shanghai Hongqiao Airport",
+		"symmetry_number": "Shenzhen Airlines CA1837·",
+		"symmetry_checkIn": "Check-in counter K19",
+		"symmetryBtnText": "Boarding pass",
+		"symmetry_voiceLabel": "Hello",
+		"symmetry_serviceName": "Umetrip"
+	}
+}

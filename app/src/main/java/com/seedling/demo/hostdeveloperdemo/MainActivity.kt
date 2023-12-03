@@ -5,10 +5,6 @@ import android.app.PendingIntent
 import android.content.Intent
 import android.content.IntentFilter
 import android.nfc.NfcAdapter
-import android.nfc.Tag
-import android.nfc.tech.MifareClassic
-import android.nfc.tech.NdefFormatable
-import android.nfc.tech.NfcA
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -17,8 +13,6 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.oplus.pantanal.seedling.bean.SeedlingIntent
 import com.oplus.pantanal.seedling.bean.SeedlingIntentFlagEnum
 import com.oplus.pantanal.seedling.intent.IIntentResultCallBack
@@ -32,12 +26,7 @@ class MainActivity : AppCompatActivity(), CardSelectionListener {
         lateinit var cardList: CardList
     }
 
-    private lateinit var dialog: BottomSheetDialog
-    private lateinit var cardAdaptor: CardSelectionAdapter
-    private lateinit var recyclerView: RecyclerView
     private lateinit var card: Card
-
-
 
     private lateinit var nfcAdapter: NfcAdapter
     private lateinit var pendingIntent: PendingIntent

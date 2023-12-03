@@ -1,0 +1,14 @@
+{
+	"strings": {
+		"symmetry_name": "我是服务名称",
+		"symmetry_additional": "开始登机 登机口41",
+		"symmetry_content": "开始登机",
+		"symmetry_departureLocation": "宝安机场",
+		"symmetry_destLocation": "虹桥机场",
+		"symmetry_number": "深航 CA1837·",
+		"symmetry_checkIn": "值机柜台K19",
+		"symmetryBtnText": "登机牌",
+		"symmetry_voiceLabel": "我是语音播报",
+		"symmetry_serviceName": "航旅纵横"
+	}
+}
