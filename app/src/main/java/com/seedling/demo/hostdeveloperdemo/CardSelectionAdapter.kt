@@ -1,7 +1,6 @@
 package com.seedling.demo.hostdeveloperdemo
 
 import android.os.Looper
-import android.renderscript.ScriptIntrinsicYuvToRGB
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,10 +8,9 @@ import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import kotlin.properties.Delegates
 
 class CardSelectionAdapter(
-    private var cardList : MutableList<Card>,
+    private var cardList: List<Card>,
     private val onItemSelectedListener: (card: Card) -> Unit
 ) : RecyclerView.Adapter<CardSelectionAdapter.ViewHolder>() {
 

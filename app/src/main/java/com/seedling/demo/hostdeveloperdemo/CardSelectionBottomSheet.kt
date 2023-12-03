@@ -13,6 +13,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 class CardSelectionBottomSheet : BottomSheetDialogFragment() {
 
     private var cardSelectionListener: CardSelectionListener? = null
+    private lateinit var cardList: CardList
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,7 +27,7 @@ class CardSelectionBottomSheet : BottomSheetDialogFragment() {
 
         val recyclerView: RecyclerView = view.findViewById(R.id.rvCardSelection)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        val adapter = CardSelectionAdapter(CardList().cards) {
+        val adapter = CardSelectionAdapter(cardList.cards) {
             card -> cardSelectionListener?.onCardSelected(card)
         }
         if (MainActivity.cardSelectedPosition < 0) MainActivity.cardSelectedPosition = 0
@@ -39,6 +40,10 @@ class CardSelectionBottomSheet : BottomSheetDialogFragment() {
 
     fun setCardSelectionListener(listener: CardSelectionListener) {
         cardSelectionListener = listener
+    }
+
+    fun setCardList(cardList: CardList) {
+        this.cardList = cardList
     }
 
 }

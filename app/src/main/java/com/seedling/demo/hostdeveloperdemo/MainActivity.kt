@@ -24,12 +24,12 @@ import com.oplus.pantanal.seedling.bean.SeedlingIntentFlagEnum
 import com.oplus.pantanal.seedling.intent.IIntentResultCallBack
 import com.oplus.pantanal.seedling.util.SeedlingTool
 
-@Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity(), CardSelectionListener {
 
     companion object{
         const val TAG = "MainActivity"
         var cardSelectedPosition = 0
+        lateinit var cardList: CardList
     }
 
     private lateinit var dialog: BottomSheetDialog
@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity(), CardSelectionListener {
     private lateinit var recyclerView: RecyclerView
     private lateinit var card: Card
 
-    private lateinit var cardList: CardList
+
 
     private lateinit var nfcAdapter: NfcAdapter
     private lateinit var pendingIntent: PendingIntent
@@ -47,10 +47,9 @@ class MainActivity : AppCompatActivity(), CardSelectionListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        updateCardInfo()
-
         cardList = CardList()
         cardList.initCardList()
+        updateCardInfo()
 
         nfcAdapter = NfcAdapter.getDefaultAdapter(this)
         if (nfcAdapter == null) {
@@ -77,65 +76,23 @@ class MainActivity : AppCompatActivity(), CardSelectionListener {
             Log.d(TAG, "nfc TAG detected")
             // Extract data from the intent, if needed
             // For example, you might want to read data from an NFC tag
-            val tag : Tag? = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG)
-//             val data = readDataFromNFC(tag)
-            if (tag != null) {
-                readNfcTag(tag)
-            }
 
             // Update the description
             updateTvDescription()
         }
     }
 
-    private fun readNfcTag(tag: Tag) {
-
-        cardList.addCard(tag.id.toString(), "Yu Heng", NfcA.get(tag).sak.toString())
-//        val technologies = tag.techList
-
-//        for (tech in technologies) {
-//            when (tech) {
-//                NfcA::class.java.name -> readNfcA(tag)
-//                MifareClassic::class.java.name -> readMifareClassic(tag)
-//                NdefFormatable::class.java.name -> handleNdefFormatable(tag)
-//                // Add more cases for other supported technologies as needed
-//            }
-//        }
-    }
-
-    private fun readNfcA(tag: Tag) {
-        // Handle NfcA technology
-//        val nfcA = NfcA.get(tag)
-//        val uid = nfcA!!.sak // Example: Get the Select Application Code (SAK) as an integer
-//        updateNfcInfo("SAK: $uid")
-    }
-
-    private fun readMifareClassic(tag: Tag) {
-        // Handle MifareClassic technology
-        // Example: val mifareClassic = MifareClassic.get(tag)
-        // Read data from MifareClassic tag...
-    }
-
-    private fun handleNdefFormatable(tag: Tag) {
-        // Handle NdefFormatable technology
-        // Example: val ndefFormatable = NdefFormatable.get(tag)
-        // Format the tag or perform other actions...
-    }
-
-    private fun updateNfcInfo(nfcInfo: String) {
-        findViewById<TextView>(R.id.nfc_info).text = nfcInfo
-    }
-
     override fun onResume() {
         super.onResume()
         Log.d(TAG, "onResume")
-        nfcAdapter?.enableForegroundDispatch(this, pendingIntent, intentFilters, null)
+        nfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFilters, null)
     }
 
     private fun updateCardInfo() {
         Log.d(TAG, "update card info")
 
         //TODO: ACCESS THE CARD SELECTED - val card = ??
+        card = cardList.cards.get(cardSelectedPosition)
         Toast.makeText(this, "cardSelectedPosition: $cardSelectedPosition", Toast.LENGTH_SHORT).show()
         findViewById<TextView>(R.id.bank_info).text = "${card.cardNumber}\n${card.cardHolderName}"
     }
@@ -187,6 +144,7 @@ class MainActivity : AppCompatActivity(), CardSelectionListener {
         findViewById<ImageButton>(R.id.ibSwapCard).setOnClickListener {
             val bottomSheet = CardSelectionBottomSheet()
             bottomSheet.setCardSelectionListener(this)
+            bottomSheet.setCardList(cardList)
             bottomSheet.show(supportFragmentManager, bottomSheet.tag)
         }
 

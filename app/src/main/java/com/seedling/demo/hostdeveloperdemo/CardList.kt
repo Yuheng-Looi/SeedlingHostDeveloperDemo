@@ -5,7 +5,7 @@ class CardList {
     val cards: MutableList<Card> = mutableListOf()
 
     fun addCard(cardNumber: String, cardHolderName: String, cardID: String): Boolean {
-        if (cards.any { it.cardNumber == cardNumber }) {
+        if (!cards.any { it.cardNumber == cardNumber }) {
             val card = Card(cardNumber, cardHolderName, cardID)
             cards.add(card)
             return true
