@@ -1,11 +1,21 @@
 
 {
     "strings": {
-        "openApp": "open app",
-        "name": "travel",
-        "description": "reminder",
-        "groupTitle": "travel reminder",
-        "title": "Service name",
-        "describe": "Text"
+
+        "title": "Pay with OPPO Pay",
+        "describe": "Scan",
+        "describe1": "QR Code",
+        "describe2": "NFC",
+        "describe3": "Transfer",
+        "symmetry_additional": "RM 40.00 received from TEY HENRY",
+        "symmetry_content": "RM 40.00",
+        "symmetry_departureTime": "-RM 40.00",
+        "symmetry_destTime": "+RM 40.00",
+        "symmetry_departureLocation": "TEY HENRY",
+        "symmetry_destLocation": "Card1",
+        "symmetry_number": "Received from TEY HENRY",
+        "symmetry_checkIn": "now",
+        "symmetryBtnText": "Report",
+        "symmetry_name": "OPPO Pay"
     }
 }

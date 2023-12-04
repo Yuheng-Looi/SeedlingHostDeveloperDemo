@@ -10,13 +10,19 @@ import com.oplus.pantanal.seedling.util.SeedlingTool
 import org.json.JSONObject
 
 class CardLifeCycleProvider : SeedlingCardWidgetProvider() {
+
+
+
     companion object {
         private const val TAG = "CardLifeCycleProvider"
     }
 
+
+
     override fun onCardCreate(context: Context, card: SeedlingCard) {
         Log.d(TAG, "onCardCreate: card = $card")
         SharedPreferencesUtil.getInstance(context).saveSeedlingCard(card)
+
     }
 
     override fun onCardObserve(context: Context, cards: List<SeedlingCard>) {
@@ -24,12 +30,12 @@ class CardLifeCycleProvider : SeedlingCardWidgetProvider() {
     }
 
     override fun onDestroy(context: Context, card: SeedlingCard) {
-        Log.d(TAG, "onDestroy: card = $card")
+        Log.e(TAG, "onDestroy: card = $card")
         SharedPreferencesUtil.getInstance(context).removeSeedlingCard(card)
     }
 
     override fun onHide(context: Context, card: SeedlingCard) {
-        Log.d(TAG, "onHide: card = $card")
+        Log.e(TAG, "onHide: card = $card")
 
     }
 
@@ -51,10 +57,10 @@ class CardLifeCycleProvider : SeedlingCardWidgetProvider() {
     override fun onUpdateData(context: Context, card: SeedlingCard, data: Bundle) {
         Log.d(TAG, "onUpdateData: card = $card")
         val initData = data.getString("data", null)?.let { JSONObject(it) }
-        val cardOptions = SeedlingCardOptions(
-            isMilestone = true,
-            grade = SeedlingCardOptions.GRADE_4
-        )
+        val cardOptions = SeedlingCardOptions().apply {
+            isMilestone = true
+            grade = SeedlingCardOptions.GRADE_5
+        }
         SeedlingTool.updateData(card, initData, cardOptions)
     }
 }

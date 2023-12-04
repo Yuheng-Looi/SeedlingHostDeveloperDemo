@@ -27,7 +27,8 @@
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"
-            tools:replace="android:screenOrientation" />
+            tools:replace="android:screenOrientation"
+            tools:ignore="MissingClass" />
         <activity
             android:name=".PaymentActivity"
             android:exported="false" />
@@ -71,6 +72,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.nfc.action.TAG_DISCOVERED" />
+                <action android:name="pantanal.intent.business.app.system.HOST_CARD_DEMO" />
 
                 <category android:name="android.intent.category.DEFAULT" />
 

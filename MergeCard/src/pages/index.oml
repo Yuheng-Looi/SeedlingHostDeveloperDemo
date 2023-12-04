@@ -1,22 +1,22 @@
 ﻿<template>
     
     <card-template entry="notification" category="symmetry">
-        <image level="0:A*" src="{{ symmetry_logo }}"></image>
-        <text level="1:B*">{{ symmetry_additional }}</text>
-        <div level="5:F" bg-image="{{ symmetry_bg }}">
-          <div level="6-1:G1" bg-image="{{ symmetry_bg }}">
-            <image level="0-1:A1*" src="{{ symmetry_logo }}"></image>
-            <text level="2-1:C1">{{symmetry_name}}</text>
+        <image level="0:A*" src="assets/images/logo.png"></image>
+        <text level="1:B*">{{ $t('strings.symmetry_additional') }}</text>
+        <div level="5:F" bg-image="assets/images/symmetry_bg.png">
+          <div level="6-1:G1" bg-image="assets/images/symmetry_bg.png">
+            <image level="0-1:A1*" src="assets/images/logo.png"></image>
+            <text level="2-1:C1">{{$t('strings.symmetry_name')}}</text>
           </div>
-          <text level="1-1:B1*">{{ symmetry_content }}</text>
-          <text level="2-2:C2*">{{ symmetry_number }}</text>
-          <text level="2-3:C3">{{ symmetry_checkIn }}</text>
+          <text level="1-1:B1*">{{$t('strings.symmetry_content')}}</text>
+          <text level="2-2:C2*">{{$t('strings.symmetry_number')}}</text>
+          <text level="2-3:C3">{{$t('strings.symmetry_checkIn')}}</text>
           <div level="6:G">
-            <text level="2-4:C4">{{ symmetry_departureLocation }}</text>
-            <text level="2-5:C5">{{ symmetry_destLocation }}</text>
-            <text level="3-1:D1">{{ symmetry_departureTime }}</text>
-            <text level="3-2:D2">{{ symmetry_destTime }}</text>
-            <image level="3-3:D3" src="{{ symmetry_airplane }}"></image>
+            <text level="2-4:C4">{{ $t('strings.symmetry_departureLocation') }}</text>
+            <text level="2-5:C5">{{ $t('strings.symmetry_destLocation')}}</text>
+            <text level="3-1:D1">{{ $t('strings.symmetry_departureTime') }}</text>
+            <text level="3-2:D2">{{ $t('strings.symmetry_destTime') }}</text>
+            <image level="3-3:D3" src="assets/images/transferring.png"></image>
             <text level="3-4:D4">{{ symmetry_extraDays }}</text>
           </div>
           <button level="4:E" @click="clickButton" type="capsule" value="{{ symmetryBtnText }}"></button>
@@ -27,7 +27,7 @@
         <div class="container">
             <div class="top">
                 <image class="icon" src="assets/images/logo.png"></image>
-                <text class="text title">{{title}}</text>
+                <text class="text title">{{ $t('strings.title') }}</text>
             </div>
             
             <div class="center">
@@ -35,19 +35,19 @@
                     <div class="message">
                         
                         <image class="image" src="assets/images/Scan.png"></image>
-                        <text class="text describe">{{describe}}</text>
+                        <text class="text describe">{{ $t('strings.describe') }}</text>
                     </div>
                     <div class="message">
                         <image class="image" src="assets/images/QR.png"></image>
-                        <text class="text describe">{{describe1}}</text>
+                        <text class="text describe">{{ $t('strings.describe1') }}</text>
                     </div>
                     <div class="message">
                         <image class="image" src="assets/images/nfc.png"></image>
-                        <text class="text describe">{{describe2}}</text>
+                        <text class="text describe">{{ $t('strings.describe2') }}</text>
                     </div>
                     <div class="message">
                         <image class="image" src="assets/images/Frame 4.png"></image>
-                        <text class="text describe">{{describe3}}</text>
+                        <text class="text describe">{{ $t('strings.describe3') }}</text>
                     </div>
                     
                 </div>
@@ -65,9 +65,6 @@
             </div>
         </div>
     </card-template>
-
-
-
 
 </template>
     

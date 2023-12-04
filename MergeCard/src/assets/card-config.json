@@ -14,8 +14,8 @@
 		}
 	],
 	"host": {
-		"packageName": "",
-		"componentName": "",
+		"packageName": "com.seedling.demo.hostdeveloperdemo",
+		"componentName": "com.seedling.demo.hostdeveloperdemo.CardLifeCycleProvider",
 		"minHostVersion": 1
 	}
 }

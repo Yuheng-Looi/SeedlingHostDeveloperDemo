@@ -1,11 +1,20 @@
-
 {
     "strings": {
-        "openApp": "打开应用",
-        "name": "旅客",
-        "description": "提醒",
-        "groupTitle": "旅客 提醒",
-        "title": "服务名称",
-        "describe": "描述文本"
+
+        "title": "使用OPPO Pay付款",
+        "describe": "扫码",
+        "describe1": "二维码",
+        "describe2": "NFC",
+        "describe3": "转账",
+        "symmetry_additional": "从TEY HENRY收到RM 40.00",
+        "symmetry_content": "RM 40.00",
+        "symmetry_departureTime": "-RM 40.00",
+        "symmetry_destTime": "+RM 40.00",
+        "symmetry_departureLocation": "TEY HENRY",
+        "symmetry_destLocation": "Card1",
+        "symmetry_number": "来自TEY HENRY",
+        "symmetry_checkIn": "现在",
+        "symmetryBtnText": "报错",
+        "symmetry_name": "OPPO Pay"
     }
 }
