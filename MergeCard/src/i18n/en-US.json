@@ -1,0 +1,11 @@
+
+{
+    "strings": {
+        "openApp": "open app",
+        "name": "travel",
+        "description": "reminder",
+        "groupTitle": "travel reminder",
+        "title": "Service name",
+        "describe": "Text"
+    }
+}

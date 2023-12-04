@@ -99,7 +99,7 @@
             <!-- 多个upk用;隔开 -->
             <meta-data
                 android:name="oplus.seedling.provider"
-                android:value="SeedlingDemo.upk;MergeCard.upk" />
+                android:value="MergeCard.upk" />
 
 
         </provider> <!-- 接入泛在服务，首先需要去OPPO开放平台申请授权码。 咨询产品或者商务，必须 -->
