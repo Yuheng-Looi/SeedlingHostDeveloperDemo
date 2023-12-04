@@ -1,9 +1,17 @@
 package com.seedling.demo.hostdeveloperdemo
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
@@ -15,6 +23,12 @@ class ReportActivity : AppCompatActivity() {
 
     private lateinit var pieChart: PieChart
     private val expManager = ExpenseManager()
+    private lateinit var transactions: String
+
+    private val year = 2023
+    private val month = 11
+    private val day = 29
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_report)
@@ -23,23 +37,111 @@ class ReportActivity : AppCompatActivity() {
 
         randomExpenses() // generate random expenses
 
-        val monthlyExpenses = expManager.getPieChartForMonth(2023,11)
+        val monthlyExpenses = expManager.getPieChartForMonth(year, month)
+        val monthlyTransaction = expManager.getExpensesForMonth(year, month)
         updatePieChart(monthlyExpenses)
+        handleTransaction(monthlyTransaction)
 
         findViewById<Button>(R.id.btnDaily).setOnClickListener {
-            val dailyExpenses = expManager.getPieChartForDay(2023,11, 29)
+            val dailyExpenses = expManager.getPieChartForDay(year, month, day)
             updatePieChart(dailyExpenses)
+
+            val dailyTransaction = expManager.getExpensesForDay(year, month, day)
+            handleTransaction(dailyTransaction)
         }
 
         findViewById<Button>(R.id.btnMonthly).setOnClickListener {
             updatePieChart(monthlyExpenses)
+            handleTransaction(monthlyTransaction)
         }
 
         findViewById<Button>(R.id.btnYearly).setOnClickListener {
-            val yearlyExpenses = expManager.getPieChartForYear(2023)
+            val yearlyExpenses = expManager.getPieChartForYear(year)
             updatePieChart(yearlyExpenses)
+
+            val yearlyTransaction = expManager.getExpensesForYear(year)
+            handleTransaction(yearlyTransaction)
+
         }
 
+        TransactionHistoryOnClick()
+
+        initClickBills()
+
+    }
+
+    private fun initClickBills() {
+        val bta = BankTransferActivity()
+
+        findViewById<ImageButton>(R.id.ibElectricBill).setOnClickListener {
+            val intent = Intent(this, BankTransferActivity::class.java)
+//            bta.setTitle("Electric Bill")
+            startActivity(intent)
+        }
+        findViewById<ImageButton>(R.id.ibWaterBill).setOnClickListener {
+            val intent = Intent(this, BankTransferActivity::class.java)
+//            bta.setTitle("Water Bill")
+            startActivity(intent)
+        }
+        findViewById<ImageButton>(R.id.ibWifi).setOnClickListener {
+            val intent = Intent(this, BankTransferActivity::class.java)
+//            bta.setTitle("Wifi Bill")
+            startActivity(intent)
+        }
+        findViewById<ImageButton>(R.id.ibPostpaid).setOnClickListener {
+            val intent = Intent(this, BankTransferActivity::class.java)
+//            bta.setTitle("Postpaid")
+            startActivity(intent)
+        }
+        findViewById<ImageButton>(R.id.ibPrepaid).setOnClickListener {
+            val intent = Intent(this, BankTransferActivity::class.java)
+//            bta.setTitle("Prepaid")
+            startActivity(intent)
+        }
+        findViewById<ImageButton>(R.id.ibParking).setOnClickListener {
+            val intent = Intent(this, BankTransferActivity::class.java)
+//            bta.setTitle("Parking")
+            startActivity(intent)
+        }
+    }
+
+    private fun handleTransaction(transactions: List<Expense>) {
+
+        val transactionItemList = transactions.map { expense ->
+            TransactionItem(
+                "${expense.dayTag}-${expense.monthTag}-${expense.yearTag}\n${expense.category}",
+                "RM${String.format("%.2f",expense.amount)}"
+            )
+        }
+
+        val recyclerView: RecyclerView = findViewById(R.id.rvTransaction)
+        recyclerView.visibility = View.VISIBLE
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = TransactionAdapter(transactionItemList)
+
+        var totalexpenses = 0.00f
+        for (expense in transactions) {
+            totalexpenses += expense.amount
+        }
+        val formattedTotalExpenses = String.format("%.2f", totalexpenses)
+
+        val totalExpense = findViewById<TextView>(R.id.tvTotalExpense)
+        totalExpense.text = "Total Expenses: RM$formattedTotalExpenses"
+
+    }
+
+    private fun TransactionHistoryOnClick() {
+        val ivArrow = findViewById<ImageView>(R.id.ivArrow)
+        val rvTransaction = findViewById<RecyclerView>(R.id.rvTransaction)
+        ivArrow.setOnClickListener {
+            if (rvTransaction.visibility == View.GONE) {
+                rvTransaction.visibility = View.VISIBLE
+                ivArrow.setImageResource(R.drawable.ic_arrow_down)
+            } else {
+                rvTransaction.visibility = View.GONE
+                ivArrow.setImageResource(R.drawable.ic_arrow_left)
+            }
+        }
     }
 
     private fun randomExpenses() {
@@ -66,8 +168,8 @@ class ReportActivity : AppCompatActivity() {
         val colors = intArrayOf(
             Color.rgb(255, 102, 102), // Red
             Color.rgb(255, 204, 102), // Orange
-            Color.rgb(255, 255, 102), // Yellow
-            Color.rgb(102, 255, 102), // Green
+            Color.rgb(255, 235, 102), // Yellow
+            Color.rgb(102, 240, 102), // Green
             Color.rgb(102, 255, 255), // Cyan
             Color.rgb(102, 102, 255), // Blue
             Color.rgb(204, 102, 255)  // Purple
@@ -105,5 +207,4 @@ class ReportActivity : AppCompatActivity() {
     }
 
     // TODO: CREATE MOCK INTERFACE FOR PAY BILLS
-    // TODO: URGENT: show the transaction history with expandable area (hide/show) according to the category chosen
 }

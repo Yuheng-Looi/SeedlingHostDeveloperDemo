@@ -120,19 +120,30 @@ class MainActivity : AppCompatActivity(), CardSelectionListener {
         super.onNewIntent(intent)
 //        Toast.makeText(this, "NewIntent: ${intent?.action}", Toast.LENGTH_LONG).show()
         if (intent?.action == NfcAdapter.ACTION_TAG_DISCOVERED) {
+            nfcAdapter.disableReaderMode(this)
             Log.d(TAG, "nfc TAG detected")
             // Extract data from the intent, if needed
             // For example, you might want to read data from an NFC tag
 
             // Update the description
             updateTvDescription()
+            val bottomSheet = CategorySelectionBottomSheet()
+            bottomSheet.show(supportFragmentManager, bottomSheet.tag)
         }
     }
 
     override fun onResume() {
         super.onResume()
         Log.d(TAG, "onResume")
+        Toast.makeText(this, "ActivityMain on Resume", Toast.LENGTH_SHORT).show()
         nfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFilters, null)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "onPause")
+        Toast.makeText(this, "ActivityMain on Pause", Toast.LENGTH_SHORT).show()
+        nfcAdapter.disableForegroundDispatch(this)
     }
 
     private fun updateCardInfo() {

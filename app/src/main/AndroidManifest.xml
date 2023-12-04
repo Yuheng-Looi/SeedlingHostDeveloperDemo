@@ -33,7 +33,7 @@
             android:exported="false" />
         <activity
             android:name=".ReportActivity"
-            android:exported="false" />
+            android:exported="false"/>
         <activity
             android:name=".AddCardActivity"
             android:exported="false">
