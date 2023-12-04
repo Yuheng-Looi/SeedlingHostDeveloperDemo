@@ -6,6 +6,9 @@
         "entry": "notification",
         "category": "symmetry"
       },
+      "events": {
+        "click": "clickBtn"
+      },
       "children": [
         {
           "type": "image",
@@ -323,17 +326,17 @@
     "describe2": "NFC",
     "describe3": "Transfer",
     "symmetry_logo": "assets/images/logo.png",
-    "symmetry_additional": "RM 40.00 has been successfully transferred to Maxis",
+    "symmetry_additional": "Received RM 40.00 from Tey Henry",
     "symmetry_content": "RM 40.00",
     "symmetry_airplane": "assets/images/transferring.png",
     "symmetry_departureTime": "-RM 40.00",
     "symmetry_destTime": "+RM 40.00",
     "symmetry_extraDays": "+1",
     "symmetry_bg": "assets/images/symmetry_bg.png",
-    "symmetry_departureLocation": "TEY HENRY",
-    "symmetry_destLocation": "Maxis",
-    "symmetry_number": "Transfer To",
-    "symmetry_checkIn": "Maxis",
+    "symmetry_departureLocation": "Tey Henry",
+    "symmetry_destLocation": "YOU",
+    "symmetry_number": "RECEIVED from Tey Henry",
+    "symmetry_checkIn": "Just now",
     "symmetryBtnText": "Report",
     "symmetry_name": "OPPO Pay",
     "symmetry_serviceName": "航旅纵横"
@@ -341,7 +344,8 @@
   "actions": {
     "clickBtn": {
       "type": "deeplink",
-      "uri": "com.oplus.sceneservice.scene.seedling.route",
+      "uri": "com.oplus.seedling.action.taxi",
+      "data": "uri",
       "params": {
         "method": "train_click",
         "travelId": "{{title}}",
@@ -358,7 +362,7 @@
       "paddingBottom": "0px",
       "paddingLeft": "22px",
       "flexDirection": "column",
-      "backgroundColor": "#B9FBD7"
+      "backgroundColor": "#ffffff"
     },
     ".top": {
       "minHeight": "20px",

@@ -1,5 +1,6 @@
 ﻿<template>
     
+<<<<<<< HEAD
     <card-template entry="notification" category="symmetry">
         <image level="0:A*" src="assets/images/logo.png"></image>
         <text level="1:B*">{{ $t('strings.symmetry_additional') }}</text>
@@ -7,6 +8,15 @@
           <div level="6-1:G1" bg-image="assets/images/symmetry_bg.png">
             <image level="0-1:A1*" src="assets/images/logo.png"></image>
             <text level="2-1:C1">{{$t('strings.symmetry_name')}}</text>
+=======
+    <card-template entry="notification" category="symmetry" onclick="clickBtn">
+        <image level="0:A*" src="{{ symmetry_logo }}"></image>
+        <text level="1:B*">{{ symmetry_additional }}</text>
+        <div level="5:F" bg-image="{{ symmetry_bg }}">
+          <div level="6-1:G1" bg-image="{{ symmetry_bg }}">
+            <image level="0-1:A1*" src="{{ symmetry_logo }}"></image>
+            <text level="2-1:C1">{{symmetry_name}}</text>
+>>>>>>> origin
           </div>
           <text level="1-1:B1*">{{$t('strings.symmetry_content')}}</text>
           <text level="2-2:C2*">{{$t('strings.symmetry_number')}}</text>
@@ -74,7 +84,7 @@
         height: 100%;
         padding: 16px 22px 0 22px;
         flex-direction: column;
-        background-color:#B9FBD7;
+        background-color:#fff;
     }
     .top {
         min-height: 20px;
@@ -184,17 +194,17 @@
             "describe2": "NFC",
             "describe3": "Transfer",
             "symmetry_logo": "assets/images/logo.png",
-            "symmetry_additional": "RM 40.00 has been successfully transferred to Maxis",
+            "symmetry_additional": "Received RM 40.00 from Tey Henry",
             "symmetry_content": "RM 40.00",
             "symmetry_airplane": "assets/images/transferring.png",
             "symmetry_departureTime": "-RM 40.00",
             "symmetry_destTime": "+RM 40.00",
             "symmetry_extraDays": "+1",
             "symmetry_bg": "assets/images/symmetry_bg.png",
-            "symmetry_departureLocation": "TEY HENRY",
-            "symmetry_destLocation": "Maxis",
-            "symmetry_number": "Transfer To",
-            "symmetry_checkIn": "Maxis",
+            "symmetry_departureLocation": "Tey Henry",
+            "symmetry_destLocation": "YOU",
+            "symmetry_number": "RECEIVED from Tey Henry",
+            "symmetry_checkIn": "Just now",
             "symmetryBtnText": "Report",
             "symmetry_name": "OPPO Pay",
             "symmetry_serviceName": "航旅纵横",
@@ -203,7 +213,8 @@
         "uiEvent": {
             "clickBtn": {
                 "type": "deeplink",
-                "uri":"com.oplus.sceneservice.scene.seedling.route",
+                "uri":"com.oplus.seedling.action.taxi",
+                "data":"uri",
                 "params": {
                     "method":"train_click",
                     "travelId":"{{title}}",

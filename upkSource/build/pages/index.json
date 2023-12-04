@@ -177,7 +177,7 @@
                         {
                           "type": "text",
                           "attr": {
-                            "value": "{{$t('strings.describe')}}"
+                            "value": "{{$t('strings.title')}}"
                           },
                           "classList": [
                             "text",
