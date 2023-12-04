@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bottom_sheet_corner">
+
+    <TextView
+        android:id="@+id/tvCardSelection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Category"
+        android:padding="20dp"
+        android:textSize="@dimen/title_text_size"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivFood"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/icon_padding_horizontal"
+        android:paddingVertical="@dimen/icon_padding_vertical"
+        android:src="@drawable/foodrink"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvCardSelection" />
+
+    <ImageView
+        android:id="@+id/ivBill"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/icon_padding_horizontal"
+        android:paddingVertical="@dimen/icon_padding_vertical"
+        android:src="@drawable/bills"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvCardSelection" />
+
+    <TextView
+        android:id="@+id/tvFood"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Food and Drinks"
+        android:textAlignment="center"
+        android:paddingHorizontal="@dimen/icon_padding_horizontal"
+        android:paddingVertical="@dimen/icon_padding_vertical"
+        app:layout_constraintTop_toBottomOf="@id/ivFood"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvBills"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Bills"
+        android:textAlignment="center"
+        android:paddingHorizontal="@dimen/icon_padding_horizontal"
+        android:paddingVertical="@dimen/icon_padding_vertical"
+        app:layout_constraintTop_toBottomOf="@id/ivFood"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <ImageView
+        android:id="@+id/ivShopping"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/icon_padding_horizontal"
+        android:paddingVertical="@dimen/icon_padding_vertical"
+        android:src="@drawable/shopping"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvFood" />
+
+    <ImageView
+        android:id="@+id/ivTransport"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/icon_padding_horizontal"
+        android:paddingVertical="@dimen/icon_padding_vertical"
+        android:src="@drawable/transportation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvFood" />
+
+    <TextView
+        android:id="@+id/tvShopping"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Shopping"
+        android:textAlignment="center"
+        android:paddingHorizontal="@dimen/icon_padding_horizontal"
+        android:paddingVertical="@dimen/icon_padding_vertical"
+        app:layout_constraintTop_toBottomOf="@id/ivShopping"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvTransport"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Transportation"
+        android:textAlignment="center"
+        android:paddingHorizontal="@dimen/icon_padding_horizontal"
+        android:paddingVertical="@dimen/icon_padding_vertical"
+        app:layout_constraintTop_toBottomOf="@id/ivShopping"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <ImageView
+        android:id="@+id/ivEntertainment"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/icon_padding_horizontal"
+        android:paddingVertical="@dimen/icon_padding_vertical"
+        android:src="@drawable/entertainment"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvShopping" />
+
+    <ImageView
+        android:id="@+id/ivOthers"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/icon_padding_horizontal"
+        android:paddingVertical="@dimen/icon_padding_vertical"
+        android:src="@drawable/others"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvShopping" />
+
+    <TextView
+        android:id="@+id/tvEntertainment"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Entertainment"
+        android:textAlignment="center"
+        android:paddingHorizontal="@dimen/icon_padding_horizontal"
+        android:paddingVertical="@dimen/icon_padding_vertical"
+        app:layout_constraintTop_toBottomOf="@id/ivEntertainment"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvOthers"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Others"
+        android:textAlignment="center"
+        android:paddingHorizontal="@dimen/icon_padding_horizontal"
+        android:paddingVertical="@dimen/icon_padding_vertical"
+        app:layout_constraintTop_toBottomOf="@id/ivEntertainment"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

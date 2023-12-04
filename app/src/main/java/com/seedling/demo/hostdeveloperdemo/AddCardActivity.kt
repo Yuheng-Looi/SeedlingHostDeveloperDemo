@@ -117,4 +117,9 @@ class AddCardActivity : AppCompatActivity() {
         Log.d(TAG, "onResume")
         nfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFilters, null)
     }
+
+    override fun onPause() {
+        super.onPause()
+        nfcAdapter.disableForegroundDispatch(this)
+    }
 }
