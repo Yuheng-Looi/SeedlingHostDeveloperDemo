@@ -28,7 +28,7 @@
                 <div class="bigCard">
                     <div class="message">
                         <image class="image" src="assets/images/randomImage.png"></image>
-                        <text class="text describe">{{ $t('strings.describe') }}</text>
+                        <text class="text describe">{{ $t('strings.title') }}</text>
                     </div>
                     <div class="message">
                         <image class="image" src="assets/images/randomImage.png"></image>

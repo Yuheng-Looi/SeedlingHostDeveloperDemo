@@ -135,14 +135,12 @@ class MainActivity : AppCompatActivity(), CardSelectionListener {
     override fun onResume() {
         super.onResume()
         Log.d(TAG, "onResume")
-        Toast.makeText(this, "ActivityMain on Resume", Toast.LENGTH_SHORT).show()
         nfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFilters, null)
     }
 
     override fun onPause() {
         super.onPause()
         Log.d(TAG, "onPause")
-        Toast.makeText(this, "ActivityMain on Pause", Toast.LENGTH_SHORT).show()
         nfcAdapter.disableForegroundDispatch(this)
     }
 
