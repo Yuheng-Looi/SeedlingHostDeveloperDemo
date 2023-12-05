@@ -72,11 +72,9 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.nfc.action.TAG_DISCOVERED" />
-<<<<<<< HEAD
                 <action android:name="pantanal.intent.business.app.system.HOST_CARD_DEMO" />
-=======
+
                 <action android:name="com.seedling.demo.hostdeveloperdemo.ACTION_CLICK" />
->>>>>>> origin
 
                 <category android:name="android.intent.category.DEFAULT" />
 

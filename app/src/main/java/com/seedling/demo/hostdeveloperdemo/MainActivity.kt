@@ -98,6 +98,22 @@ class MainActivity : AppCompatActivity(), CardSelectionListener {
 
         intentFilters = arrayOf(IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED))
 
+        SeedlingTool.registerResultCallBack(this, arrayOf("pantanal.intent.business.app.system.HOST_CARD_DEMO"))
+        // call card
+        SeedlingTool.sendSeedling(
+            this,
+            SeedlingIntent(
+                action = "pantanal.intent.business.app.system.HOST_CARD_DEMO",
+                flag = SeedlingIntentFlagEnum.START
+            ),
+            callBack = object :IIntentResultCallBack{
+                override fun onIntentResult(action: String, flag: Int, isSuccess: Boolean) {
+                    //决策是否成功的回调，不代表卡片是否显示
+                    Log.e(TAG,"isSuccess:${isSuccess}  action:${action}")
+                }
+            }
+        )
+
 
         initViewClick()
     }
@@ -116,6 +132,8 @@ class MainActivity : AppCompatActivity(), CardSelectionListener {
             val bottomSheet = CategorySelectionBottomSheet()
             bottomSheet.show(supportFragmentManager, bottomSheet.tag)
         }
+
+
     }
 
     override fun onResume() {
@@ -171,25 +189,11 @@ class MainActivity : AppCompatActivity(), CardSelectionListener {
         }
 
         findViewById<ImageButton>(R.id.ibSwapCard).setOnClickListener {
-//            val bottomSheet = CardSelectionBottomSheet()
-//            bottomSheet.setCardSelectionListener(this)
-//            bottomSheet.setCardList(cardList)
-//            bottomSheet.show(supportFragmentManager, bottomSheet.tag)
-            SeedlingTool.registerResultCallBack(this, arrayOf("pantanal.intent.business.app.system.HOST_CARD_DEMO"))
-            // call card
-            SeedlingTool.sendSeedling(
-                this,
-                SeedlingIntent(
-                    action = "pantanal.intent.business.app.system.HOST_CARD_DEMO",
-                    flag = SeedlingIntentFlagEnum.START
-                ),
-                callBack = object :IIntentResultCallBack{
-                    override fun onIntentResult(action: String, flag: Int, isSuccess: Boolean) {
-                        //决策是否成功的回调，不代表卡片是否显示
-                        Log.e(TAG,"isSuccess:${isSuccess}  action:${action}")
-                    }
-                }
-            )
+            val bottomSheet = CardSelectionBottomSheet()
+            bottomSheet.setCardSelectionListener(this)
+            bottomSheet.setCardList(cardList)
+            bottomSheet.show(supportFragmentManager, bottomSheet.tag)
+
         }
 
         findViewById<ImageView>(R.id.ivBankCard).setOnClickListener {

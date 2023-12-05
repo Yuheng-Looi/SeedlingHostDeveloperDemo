@@ -57,10 +57,10 @@ class CardLifeCycleProvider : SeedlingCardWidgetProvider() {
     override fun onUpdateData(context: Context, card: SeedlingCard, data: Bundle) {
         Log.d(TAG, "onUpdateData: card = $card")
         val initData = data.getString("data", null)?.let { JSONObject(it) }
-        val cardOptions = SeedlingCardOptions().apply {
-            isMilestone = true
+        val cardOptions = SeedlingCardOptions (
+            isMilestone = true,
             grade = SeedlingCardOptions.GRADE_5
-        }
+        )
         SeedlingTool.updateData(card, initData, cardOptions)
     }
 }
