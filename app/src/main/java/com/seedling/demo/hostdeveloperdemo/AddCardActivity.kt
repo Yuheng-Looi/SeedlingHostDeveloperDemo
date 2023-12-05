@@ -20,8 +20,7 @@ import android.widget.Toast
 @Suppress("DEPRECATION")
 class AddCardActivity : AppCompatActivity() {
 
-    val TAG = "AddCardActivity"
-
+    private val TAG = "AddCardActivity"
     private lateinit var nfcAdapter: NfcAdapter
     private lateinit var pendingIntent: PendingIntent
     private lateinit var intentFilters: Array<IntentFilter>
@@ -51,13 +50,9 @@ class AddCardActivity : AppCompatActivity() {
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-//        Toast.makeText(this, "NewIntent: ${intent?.action}", Toast.LENGTH_LONG).show()
         if (intent?.action == NfcAdapter.ACTION_TAG_DISCOVERED) {
             Log.d(TAG, "nfc TAG detected")
-            // Extract data from the intent, if needed
-            // For example, you might want to read data from an NFC tag
             val tag : Tag? = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG)
-
             if (tag != null) {
                 readNfcTag(tag)
             }
@@ -65,12 +60,10 @@ class AddCardActivity : AppCompatActivity() {
     }
 
     private fun readNfcTag(tag: Tag) {
-
         val technologies = tag.techList
-
         for (tech in technologies) {
             when (tech) {
-                NfcA::class.java.name -> readNfcA(tag)
+                NfcA::class.java.name -> readNfcA(tag) //only this will extract for demo
                 MifareClassic::class.java.name -> readMifareClassic(tag)
                 NdefFormatable::class.java.name -> handleNdefFormatable(tag)
                 // Add more cases for other supported technologies as needed
@@ -101,14 +94,14 @@ class AddCardActivity : AppCompatActivity() {
 
     private fun readMifareClassic(tag: Tag) {
         // Handle MifareClassic technology
-        val mifareClassic = MifareClassic.get(tag)
+        // val mifareClassic = MifareClassic.get(tag)
         // Read data from MifareClassic tag...
 
     }
 
     private fun handleNdefFormatable(tag: Tag) {
         // Handle NdefFormatable technology
-        // Example: val ndefFormatable = NdefFormatable.get(tag)
+        // val ndefFormatable = NdefFormatable.get(tag)
         // Format the tag or perform other actions...
     }
 
@@ -120,6 +113,7 @@ class AddCardActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
+        Log.d(TAG,"onPause")
         nfcAdapter.disableForegroundDispatch(this)
     }
 }

@@ -14,9 +14,9 @@ class CardList {
     }
 
     fun initCardList() {
-        addCard("Card 1", "Name1", "visa")
-        addCard("Card 2", "Yu Heng", "tng")
-        addCard("Card 3", "Henry", "any")
+        addCard("Card 1", "Name1", "123aef")
+        addCard("Card 2", "Yu Heng", "abc145")
+        addCard("Card 3", "Henry", "144252")
     }
 
 }

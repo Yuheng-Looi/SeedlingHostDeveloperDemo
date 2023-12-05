@@ -24,10 +24,7 @@ class CardSelectionAdapter(
         lateinit var card: Card
     }
 
-
-    private val handler = android.os.Handler(Looper.getMainLooper())
     private lateinit var view: View
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         view = LayoutInflater.from(parent.context)
@@ -44,14 +41,12 @@ class CardSelectionAdapter(
 
         // Set a click listener on the entire item view
         holder.itemView.setOnClickListener {
-            // Update the selectedPosition and notify data set changed
             MainActivity.cardSelectedPosition = holder.adapterPosition
             onItemSelectedListener.invoke(card)
             notifyDataSetChanged()
         }
 
         holder.radioButton.setOnClickListener {
-            // Update the selectedPosition and notify data set changed
             MainActivity.cardSelectedPosition = holder.adapterPosition
             onItemSelectedListener.invoke(card)
             notifyDataSetChanged()

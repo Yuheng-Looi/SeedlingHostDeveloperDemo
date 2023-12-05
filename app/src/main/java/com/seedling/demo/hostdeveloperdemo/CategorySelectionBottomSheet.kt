@@ -20,34 +20,28 @@ class CategorySelectionBottomSheet : BottomSheetDialogFragment()  {
     ): View? {
         val view = inflater.inflate(R.layout.bottom_sheet_category_selection, container, false)
 
+        // all ImageView will add the transaction to add payment history
         view.findViewById<ImageView>(R.id.ivFood).setOnClickListener {
-//            selectedMessage()
-            // Dismiss the BottomSheetDialogFragment when the image is clicked
             dismiss()
         }
 
         view.findViewById<ImageView>(R.id.ivShopping).setOnClickListener {
-            // Dismiss the BottomSheetDialogFragment when the image is clicked
             dismiss()
         }
 
         view.findViewById<ImageView>(R.id.ivEntertainment).setOnClickListener {
-            // Dismiss the BottomSheetDialogFragment when the image is clicked
             dismiss()
         }
 
         view.findViewById<ImageView>(R.id.ivBill).setOnClickListener {
-            // Dismiss the BottomSheetDialogFragment when the image is clicked
             dismiss()
         }
 
         view.findViewById<ImageView>(R.id.ivTransport).setOnClickListener {
-            // Dismiss the BottomSheetDialogFragment when the image is clicked
             dismiss()
         }
 
         view.findViewById<ImageView>(R.id.ivOthers).setOnClickListener {
-            // Dismiss the BottomSheetDialogFragment when the image is clicked
             dismiss()
         }
         return view

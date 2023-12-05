@@ -11,13 +11,9 @@ import org.json.JSONObject
 
 class CardLifeCycleProvider : SeedlingCardWidgetProvider() {
 
-
-
     companion object {
         private const val TAG = "CardLifeCycleProvider"
     }
-
-
 
     override fun onCardCreate(context: Context, card: SeedlingCard) {
         Log.d(TAG, "onCardCreate: card = $card")

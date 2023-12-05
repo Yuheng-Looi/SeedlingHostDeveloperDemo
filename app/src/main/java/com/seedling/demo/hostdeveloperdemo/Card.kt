@@ -4,6 +4,4 @@ data class Card(
     val cardNumber: String,
     val cardHolderName: String,
     val cardID: String
-) {
-    val isSelected = true
-}
+)

@@ -20,11 +20,13 @@ import androidx.core.content.ContextCompat
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
+import com.oplus.pantanal.seedling.bean.SeedlingCard
 import com.oplus.pantanal.seedling.bean.SeedlingIntent
 import com.oplus.pantanal.seedling.bean.SeedlingIntentFlagEnum
 import com.oplus.pantanal.seedling.intent.IIntentResultCallBack
 import com.oplus.pantanal.seedling.util.SeedlingTool
 import com.seedling.demo.hostdeveloperdemo.databinding.ActivityMainBinding
+import org.json.JSONObject
 
 class MainActivity : AppCompatActivity(), CardSelectionListener {
 
@@ -34,8 +36,6 @@ class MainActivity : AppCompatActivity(), CardSelectionListener {
         var cardSelectedPosition = 0
         lateinit var cardList: CardList
     }
-
-    private lateinit var card: Card
 
     private lateinit var nfcAdapter: NfcAdapter
     private lateinit var pendingIntent: PendingIntent
@@ -72,7 +72,6 @@ class MainActivity : AppCompatActivity(), CardSelectionListener {
         options.setBeepEnabled(false)
         options.setBarcodeImageEnabled(true)
         options.setOrientationLocked(false)
-
         scanLauncher.launch(options)
     }
 
@@ -98,6 +97,22 @@ class MainActivity : AppCompatActivity(), CardSelectionListener {
 
         intentFilters = arrayOf(IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED))
 
+        initViewClick()
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        if (intent?.action == NfcAdapter.ACTION_TAG_DISCOVERED) {
+            Log.d(TAG, "nfc TAG detected")
+            updateTvDescription()
+            val bottomSheet = CategorySelectionBottomSheet()
+            bottomSheet.show(supportFragmentManager, bottomSheet.tag)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "onResume")
         SeedlingTool.registerResultCallBack(this, arrayOf("pantanal.intent.business.app.system.HOST_CARD_DEMO"))
         // call card
         SeedlingTool.sendSeedling(
@@ -113,32 +128,6 @@ class MainActivity : AppCompatActivity(), CardSelectionListener {
                 }
             }
         )
-
-
-        initViewClick()
-    }
-
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
-//        Toast.makeText(this, "NewIntent: ${intent?.action}", Toast.LENGTH_LONG).show()
-        if (intent?.action == NfcAdapter.ACTION_TAG_DISCOVERED) {
-            nfcAdapter.disableReaderMode(this)
-            Log.d(TAG, "nfc TAG detected")
-            // Extract data from the intent, if needed
-            // For example, you might want to read data from an NFC tag
-
-            // Update the description
-            updateTvDescription()
-            val bottomSheet = CategorySelectionBottomSheet()
-            bottomSheet.show(supportFragmentManager, bottomSheet.tag)
-        }
-
-
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d(TAG, "onResume")
         nfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFilters, null)
     }
 
@@ -150,9 +139,7 @@ class MainActivity : AppCompatActivity(), CardSelectionListener {
 
     private fun updateCardInfo() {
         Log.d(TAG, "update card info")
-
-        card = cardList.cards.get(cardSelectedPosition)
-//        Toast.makeText(this, "cardSelectedPosition: $cardSelectedPosition", Toast.LENGTH_SHORT).show()
+        val card = cardList.cards[cardSelectedPosition]
         bank_info = "${card.cardNumber}\n${card.cardHolderName}"
         findViewById<TextView>(R.id.bank_info).text = bank_info
     }
@@ -184,6 +171,15 @@ class MainActivity : AppCompatActivity(), CardSelectionListener {
         }
 
         findViewById<ImageButton>(R.id.ibReport).setOnClickListener {
+            // destroy card
+            SeedlingTool.sendSeedling(
+                this,
+                SeedlingIntent(
+                    action = "pantanal.intent.business.app.system.HOST_CARD_DEMO",
+                    flag = SeedlingIntentFlagEnum.END
+                )
+            )
+
             val intent = Intent(this, ReportActivity::class.java)
             startActivity(intent)
         }
@@ -209,31 +205,6 @@ class MainActivity : AppCompatActivity(), CardSelectionListener {
             val intent = Intent(this, ReceiveQrActivity::class.java)
             startActivity(intent)
         }
-
-
-//        findViewById<Button>(R.id.btn_end_intent).setOnClickListener {
-//            SeedlingTool.sendSeedling(
-//                this,
-//                SeedlingIntent(
-//                    action = "pantanal.intent.business.app.system.HOST_CARD_DEMO",
-//                    flag = SeedlingIntentFlagEnum.END
-//                )
-//            )
-//        }
-//        findViewById<Button>(R.id.btn_update_data).setOnClickListener {
-//            val cards = SharedPreferencesUtil.getInstance(this).getSeedlingCards("268452000")
-//            var currentCard:SeedlingCard?=null
-//            if (!cards.isNullOrEmpty()){
-//                Log.d(TAG, "initViewClick: currentCard = ${cards[cards.size-1]},cards = $cards")
-//                currentCard = SeedlingCard.build(cards[cards.size-1])
-//            }
-//            currentCard?.let { it1 ->
-//                SeedlingTool.updateAllCardData(
-//                    it1,
-//                    businessData = JSONObject("{\"defaultText\":\"新的更新数据\"}")
-//                )
-//            }
-//        }
     }
 
     private fun checkPermissionCamera(context: Context) {

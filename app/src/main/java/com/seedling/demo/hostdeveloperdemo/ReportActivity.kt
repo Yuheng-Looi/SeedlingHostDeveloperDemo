@@ -23,11 +23,10 @@ class ReportActivity : AppCompatActivity() {
 
     private lateinit var pieChart: PieChart
     private val expManager = ExpenseManager()
-    private lateinit var transactions: String
-
     private val year = 2023
-    private val month = 11
-    private val day = 29
+    private val month = 12
+    private val day = 5
+
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,12 +36,15 @@ class ReportActivity : AppCompatActivity() {
 
         randomExpenses() // generate random expenses
 
+        findViewById<TextView>(R.id.analytic_title).text = "Expenses Analytic ($month/$year)"
+
         val monthlyExpenses = expManager.getPieChartForMonth(year, month)
         val monthlyTransaction = expManager.getExpensesForMonth(year, month)
         updatePieChart(monthlyExpenses)
         handleTransaction(monthlyTransaction)
 
         findViewById<Button>(R.id.btnDaily).setOnClickListener {
+            findViewById<TextView>(R.id.analytic_title).text = "Expenses Analytic ($day/$month/$year)"
             val dailyExpenses = expManager.getPieChartForDay(year, month, day)
             updatePieChart(dailyExpenses)
 
@@ -51,11 +53,13 @@ class ReportActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.btnMonthly).setOnClickListener {
+            findViewById<TextView>(R.id.analytic_title).text = "Expenses Analytic ($month/$year)"
             updatePieChart(monthlyExpenses)
             handleTransaction(monthlyTransaction)
         }
 
         findViewById<Button>(R.id.btnYearly).setOnClickListener {
+            findViewById<TextView>(R.id.analytic_title).text = "Expenses Analytic ($year)"
             val yearlyExpenses = expManager.getPieChartForYear(year)
             updatePieChart(yearlyExpenses)
 
@@ -65,42 +69,33 @@ class ReportActivity : AppCompatActivity() {
         }
 
         TransactionHistoryOnClick()
-
         initClickBills()
-
     }
 
     private fun initClickBills() {
-        val bta = BankTransferActivity()
-
+        // all button will navigate to bank transfer activity when demo
         findViewById<ImageButton>(R.id.ibElectricBill).setOnClickListener {
             val intent = Intent(this, BankTransferActivity::class.java)
-//            bta.setTitle("Electric Bill")
             startActivity(intent)
         }
         findViewById<ImageButton>(R.id.ibWaterBill).setOnClickListener {
             val intent = Intent(this, BankTransferActivity::class.java)
-//            bta.setTitle("Water Bill")
             startActivity(intent)
         }
         findViewById<ImageButton>(R.id.ibWifi).setOnClickListener {
             val intent = Intent(this, BankTransferActivity::class.java)
-//            bta.setTitle("Wifi Bill")
             startActivity(intent)
         }
         findViewById<ImageButton>(R.id.ibPostpaid).setOnClickListener {
             val intent = Intent(this, BankTransferActivity::class.java)
-//            bta.setTitle("Postpaid")
             startActivity(intent)
         }
         findViewById<ImageButton>(R.id.ibPrepaid).setOnClickListener {
             val intent = Intent(this, BankTransferActivity::class.java)
-//            bta.setTitle("Prepaid")
             startActivity(intent)
         }
         findViewById<ImageButton>(R.id.ibParking).setOnClickListener {
             val intent = Intent(this, BankTransferActivity::class.java)
-//            bta.setTitle("Parking")
             startActivity(intent)
         }
     }
@@ -115,7 +110,6 @@ class ReportActivity : AppCompatActivity() {
         }
 
         val recyclerView: RecyclerView = findViewById(R.id.rvTransaction)
-        recyclerView.visibility = View.VISIBLE
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = TransactionAdapter(transactionItemList)
 
@@ -145,17 +139,17 @@ class ReportActivity : AppCompatActivity() {
     }
 
     private fun randomExpenses() {
-        expManager.addExpense(Expense(50f, ExpenseCategory.BEAUTY, System.currentTimeMillis(), 29, 11, 2023))
-        expManager.addExpense(Expense(30f, ExpenseCategory.FOOD_DRINKS, System.currentTimeMillis(), 29, 11, 2023))
-        expManager.addExpense(Expense(20f, ExpenseCategory.FOOD_DRINKS, System.currentTimeMillis(), 29, 11, 2023))
-        expManager.addExpense(Expense(300f, ExpenseCategory.FOOD_DRINKS, System.currentTimeMillis(), 28, 11, 2023))
-        expManager.addExpense(Expense(250F, ExpenseCategory.GIFTS, System.currentTimeMillis(), 27, 11, 2023))
-        expManager.addExpense(Expense(50f, ExpenseCategory.BEAUTY, System.currentTimeMillis(), 26, 11, 2023))
-        expManager.addExpense(Expense(250f, ExpenseCategory.SHOPPING, System.currentTimeMillis(), 29, 1, 2023))
+        expManager.addExpense(Expense(50f, ExpenseCategory.BEAUTY, System.currentTimeMillis(), day, month, 2023))
+        expManager.addExpense(Expense(30f, ExpenseCategory.FOOD_DRINKS, System.currentTimeMillis(), day, month, 2023))
+        expManager.addExpense(Expense(20f, ExpenseCategory.FOOD_DRINKS, System.currentTimeMillis(), day, month, 2023))
+        expManager.addExpense(Expense(300f, ExpenseCategory.FOOD_DRINKS, System.currentTimeMillis(), 4, month, 2023))
+        expManager.addExpense(Expense(250F, ExpenseCategory.GIFTS, System.currentTimeMillis(), 3, month, 2023))
+        expManager.addExpense(Expense(50f, ExpenseCategory.BEAUTY, System.currentTimeMillis(), 2, month, 2023))
+        expManager.addExpense(Expense(250f, ExpenseCategory.SHOPPING, System.currentTimeMillis(), 1, month, 2023))
         expManager.addExpense(Expense(250f, ExpenseCategory.GROCERY, System.currentTimeMillis(), 29, 10, 2023))
         expManager.addExpense(Expense(150f, ExpenseCategory.FOOD_DRINKS, System.currentTimeMillis(), 29, 9, 2023))
-        expManager.addExpense(Expense(450f, ExpenseCategory.BILLS_FEES, System.currentTimeMillis(), 29, 6, 2023))
-        expManager.addExpense(Expense(650f, ExpenseCategory.TRANSPORT, System.currentTimeMillis(), 20, 11, 2023))
+        expManager.addExpense(Expense(450f, ExpenseCategory.BILLS_FEES, System.currentTimeMillis(), 29, 8, 2023))
+        expManager.addExpense(Expense(650f, ExpenseCategory.TRANSPORT, System.currentTimeMillis(), 20, 7, 2023))
     }
 
     private fun updatePieChart(expenses: List<Expense>) {
@@ -166,13 +160,13 @@ class ReportActivity : AppCompatActivity() {
         }
 
         val colors = intArrayOf(
-            Color.rgb(255, 102, 102), // Red
-            Color.rgb(255, 204, 102), // Orange
-            Color.rgb(255, 235, 102), // Yellow
-            Color.rgb(102, 240, 102), // Green
-            Color.rgb(102, 255, 255), // Cyan
-            Color.rgb(102, 102, 255), // Blue
-            Color.rgb(204, 102, 255)  // Purple
+            Color.rgb(255, 83, 83), // Red
+            Color.rgb(230, 159, 0), // Orange
+            Color.rgb(240, 228, 66), // Yellow
+            Color.rgb(0, 158, 115), // Green
+            Color.rgb(0, 114, 178), // Blue
+            Color.rgb(86, 180, 233), // Cyan
+            Color.rgb(204, 121, 167)  // Pink
         )
 
         val pieDataSet = PieDataSet(list, "Categories")
@@ -181,7 +175,6 @@ class ReportActivity : AppCompatActivity() {
         pieDataSet.valueTextColor = Color.WHITE
         pieDataSet.sliceSpace = 1f
         pieDataSet.xValuePosition = PieDataSet.ValuePosition.OUTSIDE_SLICE
-
 
         val pieData = PieData(pieDataSet)
         pieData.setValueFormatter(object : ValueFormatter() {
@@ -194,17 +187,7 @@ class ReportActivity : AppCompatActivity() {
         pieChart.setHoleColor(Color.BLACK)
         pieChart.setUsePercentValues(true)
         pieChart.description.isEnabled = false
-        pieChart.legend.isEnabled = false // TODO: LET USER CHOOSE IF GOT TIME, ALONG WITH PIE CHART XVALUE
+        pieChart.legend.isEnabled = false
         pieChart.animateY(500)
     }
-
-    private fun showPercentage() {
-        // TODO: SHOW THE PIE CHART VALUE IN PERCENTAGE
-    }
-
-    private fun showAmount() {
-        // TODO: SHOW THE PIE CHART VALUE IN AMOUNT
-    }
-
-    // TODO: CREATE MOCK INTERFACE FOR PAY BILLS
 }
