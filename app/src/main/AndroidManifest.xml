@@ -61,8 +61,8 @@
         </activity>
 
         <provider
-            android:name=".TestCardClickProvider"
-            android:authorities="com.seedling.demo.hostdeveloperdemo.TestCardClickProvider"
+            android:name=".MainActivity"
+            android:authorities="com.seedling.demo.hostdeveloperdemo.MainActivity"
             android:enabled="true"
             android:exported="true" />
 
