@@ -6,50 +6,47 @@
         "entry": "notification",
         "category": "symmetry"
       },
-      "events": {
-        "click": "clickBtn"
-      },
       "children": [
         {
           "type": "image",
           "attr": {
             "level": "0:A*",
-            "src": "{{symmetry_logo}}"
+            "src": "assets/images/logo.png"
           }
         },
         {
           "type": "text",
           "attr": {
             "level": "1:B*",
-            "value": "{{symmetry_additional}}"
+            "value": "{{$t('strings.symmetry_additional')}}"
           }
         },
         {
           "type": "div",
           "attr": {
             "level": "5:F",
-            "bgImage": "{{symmetry_bg}}"
+            "bgImage": "assets/images/symmetry_bg.png"
           },
           "children": [
             {
               "type": "div",
               "attr": {
                 "level": "6-1:G1",
-                "bgImage": "{{symmetry_bg}}"
+                "bgImage": "assets/images/symmetry_bg.png"
               },
               "children": [
                 {
                   "type": "image",
                   "attr": {
                     "level": "0-1:A1*",
-                    "src": "{{symmetry_logo}}"
+                    "src": "assets/images/logo.png"
                   }
                 },
                 {
                   "type": "text",
                   "attr": {
                     "level": "2-1:C1",
-                    "value": "{{symmetry_name}}"
+                    "value": "{{$t('strings.symmetry_name')}}"
                   }
                 }
               ]
@@ -58,21 +55,21 @@
               "type": "text",
               "attr": {
                 "level": "1-1:B1*",
-                "value": "{{symmetry_content}}"
+                "value": "{{$t('strings.symmetry_content')}}"
               }
             },
             {
               "type": "text",
               "attr": {
                 "level": "2-2:C2*",
-                "value": "{{symmetry_number}}"
+                "value": "{{$t('strings.symmetry_number')}}"
               }
             },
             {
               "type": "text",
               "attr": {
                 "level": "2-3:C3",
-                "value": "{{symmetry_checkIn}}"
+                "value": "{{$t('strings.symmetry_checkIn')}}"
               }
             },
             {
@@ -85,35 +82,35 @@
                   "type": "text",
                   "attr": {
                     "level": "2-4:C4",
-                    "value": "{{symmetry_departureLocation}}"
+                    "value": "{{$t('strings.symmetry_departureLocation')}}"
                   }
                 },
                 {
                   "type": "text",
                   "attr": {
                     "level": "2-5:C5",
-                    "value": "{{symmetry_destLocation}}"
+                    "value": "{{$t('strings.symmetry_destLocation')}}"
                   }
                 },
                 {
                   "type": "text",
                   "attr": {
                     "level": "3-1:D1",
-                    "value": "{{symmetry_departureTime}}"
+                    "value": "{{$t('strings.symmetry_departureTime')}}"
                   }
                 },
                 {
                   "type": "text",
                   "attr": {
                     "level": "3-2:D2",
-                    "value": "{{symmetry_destTime}}"
+                    "value": "{{$t('strings.symmetry_destTime')}}"
                   }
                 },
                 {
                   "type": "image",
                   "attr": {
                     "level": "3-3:D3",
-                    "src": "{{symmetry_airplane}}"
+                    "src": "assets/images/transferring.png"
                   }
                 },
                 {
@@ -175,7 +172,7 @@
                 {
                   "type": "text",
                   "attr": {
-                    "value": "{{title}}"
+                    "value": "{{$t('strings.title')}}"
                   },
                   "classList": [
                     "text",
@@ -217,7 +214,7 @@
                         {
                           "type": "text",
                           "attr": {
-                            "value": "{{describe}}"
+                            "value": "{{$t('strings.describe')}}"
                           },
                           "classList": [
                             "text",
@@ -245,7 +242,7 @@
                         {
                           "type": "text",
                           "attr": {
-                            "value": "{{describe1}}"
+                            "value": "{{$t('strings.describe1')}}"
                           },
                           "classList": [
                             "text",
@@ -273,7 +270,7 @@
                         {
                           "type": "text",
                           "attr": {
-                            "value": "{{describe2}}"
+                            "value": "{{$t('strings.describe2')}}"
                           },
                           "classList": [
                             "text",
@@ -301,7 +298,7 @@
                         {
                           "type": "text",
                           "attr": {
-                            "value": "{{describe3}}"
+                            "value": "{{$t('strings.describe3')}}"
                           },
                           "classList": [
                             "text",
@@ -327,19 +324,18 @@
     "describe3": "Transfer",
     "symmetry_logo": "assets/images/logo.png",
     "symmetry_additional": "Received RM 40.00 from Tey Henry",
-    "symmetry_content": "RM 40.00",
+    "symmetry_content": "-RM 40.00",
     "symmetry_airplane": "assets/images/transferring.png",
-    "symmetry_departureTime": "-RM 40.00",
+    "symmetry_departureTime": "Near Budget Limit",
     "symmetry_destTime": "+RM 40.00",
-    "symmetry_extraDays": "+1",
+    "symmetry_extraDays": "",
     "symmetry_bg": "assets/images/symmetry_bg.png",
     "symmetry_departureLocation": "Tey Henry",
     "symmetry_destLocation": "YOU",
     "symmetry_number": "RECEIVED from Tey Henry",
     "symmetry_checkIn": "Just now",
     "symmetryBtnText": "Report",
-    "symmetry_name": "OPPO Pay",
-    "symmetry_serviceName": "航旅纵横"
+    "symmetry_name": "OPPO Pay"
   },
   "actions": {
     "clickBtn": {

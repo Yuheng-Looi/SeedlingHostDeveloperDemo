@@ -238,7 +238,7 @@ class MainActivity : AppCompatActivity(), CardSelectionListener {
         currentCard?.let { it1 ->
             SeedlingTool.updateAllCardData(
                 it1,
-                businessData = JSONObject("{\"defaultText\":\"新的更新数据\"}")
+                businessData = JSONObject("{\"describe\":\"newDATA\"}")
             )
         }
     }
