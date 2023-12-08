@@ -113,8 +113,8 @@ class MainActivity : AppCompatActivity(), CardSelectionListener {
     override fun onResume() {
         super.onResume()
         Log.d(TAG, "onResume")
+        // create seedling card
         SeedlingTool.registerResultCallBack(this, arrayOf("pantanal.intent.business.app.system.HOST_CARD_DEMO"))
-        // call card
         SeedlingTool.sendSeedling(
             this,
             SeedlingIntent(
@@ -171,7 +171,7 @@ class MainActivity : AppCompatActivity(), CardSelectionListener {
         }
 
         findViewById<ImageButton>(R.id.ibReport).setOnClickListener {
-            // destroy card
+            // destroy card - just for demo, should not be implemented during real application
             SeedlingTool.sendSeedling(
                 this,
                 SeedlingIntent(
@@ -194,6 +194,7 @@ class MainActivity : AppCompatActivity(), CardSelectionListener {
 
         findViewById<ImageView>(R.id.ivBankCard).setOnClickListener {
             resetTvDescription()
+            updateSeedlingCard()
         }
 
         findViewById<ImageButton>(R.id.ibBank).setOnClickListener {
@@ -225,6 +226,21 @@ class MainActivity : AppCompatActivity(), CardSelectionListener {
 
     override fun onCardSelected(selectedCard: Card) {
         updateCardInfo()
+    }
+
+    private fun updateSeedlingCard() {
+        val cards = SharedPreferencesUtil.getInstance(this).getSeedlingCards("268452000")
+        var currentCard:SeedlingCard?=null
+        if (!cards.isNullOrEmpty()){
+            Log.d(TAG, "initViewClick: currentCard = ${cards[cards.size-1]},cards = $cards")
+            currentCard = SeedlingCard.build(cards[cards.size-1])
+        }
+        currentCard?.let { it1 ->
+            SeedlingTool.updateAllCardData(
+                it1,
+                businessData = JSONObject("{\"defaultText\":\"新的更新数据\"}")
+            )
+        }
     }
 
 }
