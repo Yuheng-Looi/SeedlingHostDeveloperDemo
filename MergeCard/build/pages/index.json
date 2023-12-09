@@ -18,7 +18,7 @@
           "type": "text",
           "attr": {
             "level": "1:B*",
-            "value": "{{$t('strings.symmetry_additional')}}"
+            "value": "{{symmetry_additional}}"
           }
         },
         {
@@ -46,7 +46,7 @@
                   "type": "text",
                   "attr": {
                     "level": "2-1:C1",
-                    "value": "{{$t('strings.symmetry_name')}}"
+                    "value": "{{symmetry_name}}"
                   }
                 }
               ]
@@ -55,7 +55,7 @@
               "type": "text",
               "attr": {
                 "level": "1-1:B1*",
-                "value": "{{$t('strings.symmetry_content')}}"
+                "value": "{{symmetry_content}}"
               }
             },
             {
@@ -82,7 +82,7 @@
                   "type": "text",
                   "attr": {
                     "level": "2-4:C4",
-                    "value": "{{$t('strings.symmetry_departureLocation')}}"
+                    "value": "{{symmetry_departureLocation}}"
                   }
                 },
                 {
@@ -96,14 +96,14 @@
                   "type": "text",
                   "attr": {
                     "level": "3-1:D1",
-                    "value": "{{$t('strings.symmetry_departureTime')}}"
+                    "value": "{{symmetry_departureTime}}"
                   }
                 },
                 {
                   "type": "text",
                   "attr": {
                     "level": "3-2:D2",
-                    "value": "{{$t('strings.symmetry_destTime')}}"
+                    "value": "{{symmetry_destTime}}"
                   }
                 },
                 {
@@ -141,9 +141,6 @@
       "type": "card-template",
       "attr": {
         "entry": "desktop"
-      },
-      "events": {
-        "click": "clickBtn"
       },
       "children": [
         {
@@ -201,6 +198,9 @@
                       "classList": [
                         "message"
                       ],
+                      "events": {
+                        "click": "clickScan"
+                      },
                       "children": [
                         {
                           "type": "image",
@@ -229,6 +229,9 @@
                       "classList": [
                         "message"
                       ],
+                      "events": {
+                        "click": "clickQR"
+                      },
                       "children": [
                         {
                           "type": "image",
@@ -257,6 +260,9 @@
                       "classList": [
                         "message"
                       ],
+                      "events": {
+                        "click": "clickNFC"
+                      },
                       "children": [
                         {
                           "type": "image",
@@ -285,6 +291,9 @@
                       "classList": [
                         "message"
                       ],
+                      "events": {
+                        "click": "clickTRANSFER"
+                      },
                       "children": [
                         {
                           "type": "image",
@@ -317,36 +326,42 @@
     }
   ],
   "data": {
-    "title": "Pay with OPPO Pay",
-    "describe": "Scan",
-    "describe1": "QR Code",
-    "describe2": "NFC",
-    "describe3": "Transfer",
     "symmetry_logo": "assets/images/logo.png",
-    "symmetry_additional": "Received RM 40.00 from Tey Henry",
     "symmetry_content": "-RM 40.00",
     "symmetry_airplane": "assets/images/transferring.png",
-    "symmetry_departureTime": "Near Budget Limit",
     "symmetry_destTime": "+RM 40.00",
     "symmetry_extraDays": "",
     "symmetry_bg": "assets/images/symmetry_bg.png",
-    "symmetry_departureLocation": "Tey Henry",
-    "symmetry_destLocation": "YOU",
-    "symmetry_number": "RECEIVED from Tey Henry",
-    "symmetry_checkIn": "Just now",
+    "symmetry_departureLocation": "TEY HENRY",
+    "symmetry_departureTime": "-RM 40.00",
+    "symmetry_name": "OPPO Pay",
     "symmetryBtnText": "Report",
-    "symmetry_name": "OPPO Pay"
+    "symmetry_additional": "$t('strings.symmetry_additional')"
   },
   "actions": {
-    "clickBtn": {
+    "clickScan": {
       "type": "deeplink",
-      "uri": "com.oplus.seedling.action.taxi",
+      "uri": "com.seedling.demo.hostdeveloperdemo.ACTION_SCAN",
       "data": "uri",
-      "params": {
-        "method": "train_click",
-        "travelId": "{{title}}",
-        "trainNumber": "{{describe}}"
-      }
+      "params": {}
+    },
+    "clickQR": {
+      "type": "deeplink",
+      "uri": "nativeapp://com.seedling.demo.hostdeveloperdemo.ACTION_QR",
+      "data": "uri",
+      "params": {}
+    },
+    "clickNFC": {
+      "type": "deeplink",
+      "uri": "nativeapp://com.seedling.demo.hostdeveloperdemo.ACTION_NFC",
+      "data": "uri",
+      "params": {}
+    },
+    "clickTRANSFER": {
+      "type": "deeplink",
+      "uri": "nativeapp://com.seedling.demo.hostdeveloperdemo.ACTION_TRANSFER",
+      "data": "uri",
+      "params": {}
     }
   },
   "styles": {
@@ -407,50 +422,7 @@
       "width": "100%",
       "height": "64px",
       "justifyContent": "space-between"
-    },
-    "@MEDIA": [
-      {
-        "condition": "(aspect-ratio: 1*2)",
-        ".container": {
-          "paddingTop": "12px",
-          "paddingRight": "24px",
-          "paddingBottom": "0px",
-          "paddingLeft": "24px"
-        },
-        ".top": {
-          "display": "none"
-        },
-        ".image": {
-          "width": "32px",
-          "height": "32px"
-        },
-        ".bigCard": {
-          "display": "none"
-        },
-        ".middleCard": {
-          "display": "flex",
-          "height": "53.1px"
-        },
-        ".describe": {
-          "fontSize": "12px"
-        }
-      },
-      {
-        "condition": "(aspect-ratio: 2*2)",
-        ".container": {
-          "paddingTop": "16px",
-          "paddingRight": "16px",
-          "paddingBottom": "0px",
-          "paddingLeft": "16px"
-        },
-        ".bigCard": {
-          "display": "none"
-        },
-        ".middleCard": {
-          "display": "flex"
-        }
-      }
-    ]
+    }
   },
   "apiVersion": {}
 }

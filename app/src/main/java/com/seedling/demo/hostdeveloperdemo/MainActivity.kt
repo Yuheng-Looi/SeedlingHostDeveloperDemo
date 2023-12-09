@@ -2,6 +2,7 @@ package com.seedling.demo.hostdeveloperdemo
 
 import android.annotation.SuppressLint
 import android.app.PendingIntent
+import android.content.ContentProvider
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
@@ -27,6 +28,8 @@ import com.oplus.pantanal.seedling.intent.IIntentResultCallBack
 import com.oplus.pantanal.seedling.util.SeedlingTool
 import com.seedling.demo.hostdeveloperdemo.databinding.ActivityMainBinding
 import org.json.JSONObject
+import java.io.IOException
+import java.io.OutputStream
 
 class MainActivity : AppCompatActivity(), CardSelectionListener {
 
@@ -238,9 +241,11 @@ class MainActivity : AppCompatActivity(), CardSelectionListener {
         currentCard?.let { it1 ->
             SeedlingTool.updateAllCardData(
                 it1,
-                businessData = JSONObject("{\"describe\":\"newDATA\"}")
+                businessData = JSONObject("{\"symmetry_content\":\"-RM 50.00\"," +
+                        "\"symmetry_destTime\":\"+RM 50.00\"," +
+                        "\"symmetry_additional\":\"RM 50.00 received from TEY HENRY\","+
+                "\"symmetry_departureTime\":\"-RM 50.00\"}")
             )
         }
     }
-
 }

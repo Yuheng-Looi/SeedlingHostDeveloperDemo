@@ -5,7 +5,7 @@
 	"click": [
 		{
 			"type": "activity",
-			"packageName": "",
+			"packageName": "com.seedling.demo.hostdeveloperdemo",
 			"action": "",
 			"category": "",
 			"params": {

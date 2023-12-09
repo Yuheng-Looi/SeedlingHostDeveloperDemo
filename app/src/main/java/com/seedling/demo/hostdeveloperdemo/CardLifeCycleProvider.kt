@@ -1,8 +1,10 @@
 package com.seedling.demo.hostdeveloperdemo
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import com.oplus.pantanal.seedling.SeedlingCardWidgetProvider
 import com.oplus.pantanal.seedling.bean.SeedlingCard
 import com.oplus.pantanal.seedling.update.SeedlingCardOptions
@@ -32,7 +34,7 @@ class CardLifeCycleProvider : SeedlingCardWidgetProvider() {
 
     override fun onHide(context: Context, card: SeedlingCard) {
         Log.e(TAG, "onHide: card = $card")
-
+        Log.e(TAG, "onHide context: $context")
     }
 
     override fun onShow(context: Context, card: SeedlingCard) {
